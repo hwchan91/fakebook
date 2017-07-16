@@ -1,0 +1,26 @@
+michael:
+  username: Michael Example
+  email: michael@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+archer:
+  username: Sterling Archer
+  email: duchess@example.gov
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+#lana:
+#  username: Lana Kane
+#  email: hands@example.gov
+#  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+#malory:
+#  username: Malory Archer
+#  email: boss@example.gov
+#  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+#<% 30.times do |n| %>
+#user_<%= n %>:
+#  username:  <%= "User #{n}" %>
+#  email: <%= "user-#{n}@example.com" %>
+#  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+#<% end %>

@@ -1,0 +1,12 @@
+<% unless (current_user == user or current_user.confirmed_friend?(user)) %>
+  <li>
+    <%= link_to user.username, user %>
+    <div id="suggestion_form">
+      <% if current_user.pending?(user) %>
+        <%= render partial: 'undo_send_request', locals: {user: user} %>
+      <% else %>
+        <%= render partial: 'send_request', locals: {user: user}  %>
+      <% end %>
+    </div>
+  </li>
+<% end %>
