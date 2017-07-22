@@ -1,22 +1,20 @@
-class FriendshipsController < ApplicationController
+class FriendRequestsController < ApplicationController
   before_action :authenticate_user!
 
-  #Triggers on Confirm request
   def create
-    @user = User.find(params[:friend_id])
+    @user = User.find(params[:receiver_id])
     @page = params[:page]
-    current_user.confirm_request(@user)
+    current_user.friend_request(@user)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }
       format.js
     end
   end
 
-  #Triggers on Unfriend
   def destroy
-    @user = Friendship.find(params[:id]).friend
+    @user = FriendRequest.find(params[:id]).receiver
     @page = params[:page]
-    current_user.unfriend(@user)
+    current_user.undo_friend_request(@user)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }
       format.js
@@ -24,10 +22,10 @@ class FriendshipsController < ApplicationController
   end
 
 
-  #triggers when undo confirm request
+  #triggers when Deny Request from Another
   def update
-    @user = FriendRequest.find_by(requestor_id: params[:requestor_id]).requestor
-    current_user.undo_confirm_request(@user)
+    @user = FriendRequest.find(params[:id]).requestor
+    current_user.deny_request(@user)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }
       format.js

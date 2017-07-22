@@ -1,30 +1,15 @@
-<% user = friendship.friend %>
-<li>
-  <%= link_to user.username, user %>
-  <div id="request_form">
-  <% if current_user.confirmed_friend?(user) %>
-    <%= form_for(current_user.friendships.find_by(friend_id: user.id),
-                 html: { method: :delete },
-                 remote: true) do |f| %>
-      <%= f.submit "Undo", class: "btn btn-secondary" %>
-    <% end %>
-  <% else %>
-    <table>
-      <tr>
-        <td style="padding: 0px 10px">
-          <%= form_for (current_user.friendships.find_by(friend_id: user.id), remote: true) do |f| %>
-            <div><%= hidden_field_tag :friend_id, user.id %></div>
-            <%= f.submit "Accept", class: "btn btn-primary" %>
-          <% end %>
-        </td>
-        <td>
-          <%= form_for(current_user.friendships.find_by(friend_id: user.id),
-                       html: { method: :delete },
-                       remote: true) do |f| %>
-            <%= f.submit "Remove", class: "btn btn-secondary" %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-  <% end %>
-</li>
+<div class="user_row" id="request_row_<%= user.id %>">
+
+<% if @page != "profile" %>
+    <%= link_to user.username, user, class:"username" %>
+<% end %>
+
+    <div id="request_form_<%= user.id %>">
+      <% if current_user.pending_request?(user) %>
+        <%= render partial: 'undo_send_request', locals: {user: user} %>
+      <% else %>
+        <%= render partial: 'send_request', locals: {user: user}  %>
+      <% end %>
+    </div>
+
+</div>

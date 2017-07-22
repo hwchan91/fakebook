@@ -1,0 +1,15 @@
+<div class="user_row", id="confirm_request_row_<%= user.id %>">
+
+<% if @page != "profile" %>
+  <%= link_to user.username, user, class:"username" %>
+<% end %>
+
+  <div id="confirm_request_form_<%= user.id %>">
+    <% if current_user.friend?(user) %>
+        <%= render partial: 'undo_confirm_request', locals: {user: user} %>
+    <% else %>
+      <%= render partial: 'confirming_request', locals: {user: user} %>
+    <% end %>
+  </div>
+
+</div>

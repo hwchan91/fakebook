@@ -12,19 +12,21 @@ class UserTest < ActiveSupport::TestCase
     assert_not michael.friend?(archer)
     assert_not archer.friend?(michael)
 
-    michael.friend(archer)
-    assert michael.pending?(archer)
-    assert archer.request?(michael)
+    michael.friend_request(archer)
+    assert michael.pending_request?(archer)
+    assert archer.awaiting_confirm?(michael)
     assert_not michael.friend?(archer)
     assert_not archer.friend?(michael)
 
-    archer.confirm(michael)
+    archer.confirm_request(michael)
     assert michael.friend?(archer)
     assert archer.friend?(michael)
 
     michael.unfriend(archer)
     assert_not michael.friend?(archer)
     assert_not archer.friend?(michael)
+    assert_not michael.pending_request?(archer)
+    assert_not archer.awaiting_confirm?(michael)
   end
 
   test "should not allow duplicates" do

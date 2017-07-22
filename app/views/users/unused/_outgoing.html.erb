@@ -1,0 +1,10 @@
+<li>
+  <%= link_to user.username, user %>
+  <div id="outgoing_form_<%= user.id %>">
+    <% if current_user.pending_request?(user) %>
+      <%= render partial: 'undo_outgoing', locals: {user: user} %>
+    <% else %>
+      <%= render partial: 'redo_outgoing', locals: {user: user}  %>
+    <% end %>
+  </div>
+</li>

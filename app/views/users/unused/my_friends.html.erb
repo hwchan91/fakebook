@@ -1,0 +1,9 @@
+<h1>Friends</h1>
+
+<% if @friends[0].nil? %>
+  You don't have friends yet. <%= link_to "Add More Friends?", suggestions_path %></div>
+<% else %>
+  <ul class="friends">
+    <%= render partial: "my_friend", collection: @friends, as: :user %>
+  </ul>
+<% end %>

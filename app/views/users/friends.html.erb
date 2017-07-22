@@ -1,5 +1,19 @@
-<h1>Suggestions</h1>
+<% if params[:id] == 0 %>
+  <h1>Friends</h1>
+<%else %>
+  <h1><%= link_to @user.username, @user %></h1><br>
+  <h3>Friends</h3>
+<% end %>
 
-<ul class="suggestions">
-  <%= render partial: "friend", collection: @friends, as: :friendship %>
+
+<% if @friends[0].nil? %>
+  <% if params[:id] == 0 %>
+    You don't have friends yet. <%= link_to "Add More Friends?", suggestions_path %></div>
+  <% else %>
+    This person has no friends :(
+  <% end %>
+<% else %>
+<ul class="friends">
+  <%= render partial: "unfriend", collection: @friends, as: :user %>
 </ul>
+<% end %>

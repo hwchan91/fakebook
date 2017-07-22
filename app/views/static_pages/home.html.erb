@@ -1,9 +1,28 @@
-<div class="center jumbotron">
-  <h1>Welcome to Fakebook</h1>
+<% if !current_user.nil? %>
+  <%= render 'posts/post_form' %>
 
-  <h2>
-    This is an social networking app designed to mimic Facebook
-  </h2>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 posts">
+      <%= render partial: "posts/post", collection: @feed, as: :post %>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
 
-  <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
-</div>
+
+
+
+
+
+
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to Fakebook</h1>
+
+    <h2>
+      This is an social networking app designed to mimic Facebook
+    </h2>
+
+    <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

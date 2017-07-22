@@ -1,0 +1,19 @@
+<div class="user_row", id="friend_row_<%= user.id %>">
+
+<% if @page != "profile" %>
+    <%= link_to user.username, user, class: "username" %>
+<% end %>
+
+    <div id="unfriend_form_<%= user.id %>">
+      <% if params[:id] == 0 or @page == "profile" %>
+        <%= form_for(current_user.friendships.find_by(friend_id: user.id),
+                     html: { method: :delete },
+                     remote: true) do |f| %>
+          <div><%= hidden_field_tag :page, @page %></div>
+          <%= f.submit "Unfriend", class: "btn btn-secondary" %>
+        <% end %>
+      <% end %>
+    </div>
+
+
+</div>

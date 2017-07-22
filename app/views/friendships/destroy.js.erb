@@ -1,0 +1,5 @@
+<% if @page == "profile" %>
+  $("#profile_page_friend_button_<%= @user.id %>").html("<%= escape_javascript(render('users/send_request', user: @user)) %>");
+<% else %>
+  $("#friend_row_<%= @user.id %>").html("");
+<% end %>

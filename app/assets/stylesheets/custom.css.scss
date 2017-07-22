@@ -1,2 +1,110 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+.profile_menu {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 50px;
+  clear: both;
+}
+
+.profile_menu div {
+  float: left;
+  width: 33.3%;
+
+}
+
+.profile_menu a {
+  display: block;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+}
+
+.username, .username:hover {
+  color: black;
+  font-weight: bold;
+}
+
+.profile_page_friend_button {
+  float: right;
+}
+
+.profile_page_friend_button p, form {
+  display: inline-block;
+}
+
+.user_row {
+  margin: 10px 0px;
+}
+
+
+.post {
+  margin: 10px 0px;
+  border: 1px solid #e8e8e8;
+}
+
+.posts span {
+  display: block;
+
+}
+
+.post-info {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+}
+
+.created_at {
+  color: grey;
+}
+
+.content {
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-size: 1.2em;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+
+.new_post_submit_button {
+  background-color: grey;
+  height: 40px;
+  margin-top: -1px;
+}
+
+
+.post_button {
+  float: right;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+
+.post_edit_button {
+  margin-top: -10px;
+  padding-right: 20px;
+}
+
+
+.navbar-default .post .navbar-nav .dropdown .dropdown-toggle{
+    background-color: transparent;
+}
+
+.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:focus,
+.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:hover
+{
+   background-color: transparent;
+}
+
+.post {
+  background-color: white;
+}
+
+.post_link {
+  padding-left: 20px;
+}

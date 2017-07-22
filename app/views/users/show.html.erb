@@ -1,2 +1,33 @@
-<%= @user.username %>
-<%= @user.email %>
+<h1><%= @user.username %></h1>
+
+<div class="profile_page_friend_button", id="profile_page_friend_button_<%= @user.id %>">
+  <% unless @user == current_user %>
+    <% if current_user.friend?(@user) %>
+      <%= render partial: "unfriend", locals: { user: @user }%>
+    <% elsif current_user.awaiting_confirm?(@user) %>
+      <%= render partial: "confirm_request", locals: { user: @user }%>
+    <% else %>
+      <%= render partial: "request", locals: { user: @user } %>
+    <% end %>
+  <% end %>
+</div>
+</br>
+
+<div class="profile_menu">
+    <% if current_user == @user %>
+      <div><%= link_to "Friends", friends_path %></div>
+      <div><%= link_to "Outgoing Requests", outgoing_path %></div>
+      <div><%= link_to "Add More Friends?", suggestions_path %></div>
+    <% else %>
+      <div><%= link_to "Friends", friends_user_path(@user) %></div>
+    <% end %>
+</div>
+</br>
+
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8 posts">
+    <%= render partial: "posts/post", collection: @posts, as: :post %>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
