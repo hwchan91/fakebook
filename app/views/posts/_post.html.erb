@@ -17,11 +17,25 @@
 
   <div class="post-info">
     <span class="username"><%= link_to post.user.username, post.user, class: "username" %></span>
-    <span class="created_at"><%= time_ago_in_words(post.created_at) %> ago</span>
+    <% if post.created_at != post.updated_at %>
+      <span class="updated_at">Updated <%= time_ago_in_words(post.updated_at) %> ago</span>
+    <% else %>
+      <span class="created_at"><%= time_ago_in_words(post.created_at) %> ago</span>
+    <% end %>
   </div>
     <span class="content"><%= post.content %></span>
     <% unless @page == "individual_post" %>
       <div class="post_link"><%= link_to "Full post", post %></div>
     <% end %>
+</div>
 
+
+<div class="comment_section">
+  <div class="comment_form">
+    <%= render "comments/comment_form", post_id: post.id  %>
+  </div>
+
+  <div id="comments_of_post_<%= post.id %>">
+    <%= render "comments/all_comments", comments: post.comments %>
+  </div>
 </div>

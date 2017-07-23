@@ -91,12 +91,15 @@ textarea {
 }
 
 
-.navbar-default .post .navbar-nav .dropdown .dropdown-toggle{
+.navbar-default .post .navbar-nav .dropdown .dropdown-toggle,
+.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle{
     background-color: transparent;
 }
 
 .navbar-default .post .navbar-nav .dropdown .dropdown-toggle:focus,
-.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:hover
+.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:hover,
+.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle:focus,
+.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle:hover
 {
    background-color: transparent;
 }
@@ -107,4 +110,47 @@ textarea {
 
 .post_link {
   padding-left: 20px;
+}
+
+.new_comment_submit_button {
+  clear: both;
+  float: right;
+}
+
+.comment_content, .after_comment {
+  float: left;
+  font-size: 90%;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.after_comment {
+  clear: both;
+
+}
+
+.comment {
+  clear: both;
+}
+
+.comment_space {
+  width: 95%;
+}
+
+.edit_comment_button {
+    line-height: 3px;
+    height: 3px;
+
+}
+
+.comment_nav > li > a {
+  margin: 1px 1px 1px 1px;
+  padding-top: 0px;
+  line-height: 3px;
+
+}
+
+.new_comment {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }

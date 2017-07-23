@@ -1,0 +1,1 @@
+$("#comments_of_post_<%= @post.id %>").html("<%= escape_javascript(render('comments/all_comments', comments: @post.comments)) %>");

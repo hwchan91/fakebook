@@ -17,5 +17,5 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :destroy, :update]
   resources :friend_requests, only: [:create, :destroy, :update]
   resources :posts, only: [:create, :edit, :update, :destroy, :show]
-
+  resources :comments, only: [:create, :destroy, :update, :edit]
 end

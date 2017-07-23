@@ -1,0 +1,31 @@
+<div class="comment comment-<%= comment.id %>">
+
+  <% if current_user == comment.user %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right comment_nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle edit_comment_button" data-toggle="dropdown">
+            ...
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Edit", edit_comment_path(comment) %></li>
+            <li><%= link_to "Delete", comment, method: :delete %></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
+
+  <div class="comment_space">
+    <div class="comment_content"><%= link_to comment.user.username, comment.user,
+                                  class: "username comment_user" %>     <%= comment.content %></div>
+    <div class="after_comment">
+      <% if comment.created_at != comment.updated_at %>
+        <span class="updated_at"><p>Updated <%= time_ago_in_words(comment.updated_at) %> ago</p></span>
+      <% else %>
+        <span class="created_at"><p><%= time_ago_in_words(comment.created_at) %> ago</p></span>
+      <% end %>
+    </div>
+  </div>
+
+</div>

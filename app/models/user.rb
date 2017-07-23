@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
 
+  has_many :comments, dependent: :destroy
+
   def friend_request(other_user)
     sent_requests << other_user
   end
