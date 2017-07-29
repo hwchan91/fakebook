@@ -1,0 +1,4 @@
+<% if post.liked_users.count != 0 %>
+  <span class="glyphicon glyphicon-thumbs-up like_counter"></span>
+  <%= post.like_sentence(current_user) %>
+<% end %>

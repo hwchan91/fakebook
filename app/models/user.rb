@@ -23,6 +23,11 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :like_post_relationships, class_name:  "Like",
+                                    dependent:   :destroy
+  has_many :liked_posts, through: :like_post_relationships, source: :post
+
+
   def friend_request(other_user)
     sent_requests << other_user
   end
@@ -123,5 +128,12 @@ class User < ApplicationRecord
 #    friendships.find_by(friend_id: other_user.id).update_attributes(confirmed: false)
 #  end
 
+  def like(post)
+    liked_posts << post
+  end
+
+  def unlike(post)
+    liked_posts.delete(post)
+  end
 
 end

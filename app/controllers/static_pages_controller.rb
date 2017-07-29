@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
     if current_user
       @feed = current_user.feed
       @post = current_user.posts.build
+      @comment = Comment.new
     end
 
   end

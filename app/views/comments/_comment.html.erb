@@ -1,20 +1,30 @@
-<div class="comment comment-<%= comment.id %>">
+<div class="comment" id="comment-<%= comment.id %>">
 
   <% if current_user == comment.user %>
     <nav>
       <ul class="nav navbar-nav navbar-right comment_nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle edit_comment_button" data-toggle="dropdown">
-            ...
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Edit", edit_comment_path(comment) %></li>
-            <li><%= link_to "Delete", comment, method: :delete %></li>
+            <li>
+              <%= form_for(:comment, html: { method: :get}, url: show_edit_comment_window_url, remote: true) do |f| %>
+                <%= hidden_field_tag :id, comment.id %>
+                <span class="full_width"><%= f.submit "Edit", class: "btn btn-block edit_comment_button" %></span>
+              <% end %>
+            </li>
+            <li>
+              <%= form_for(comment, html: { method: :delete }, remote: true) do |f| %>
+                <span class="full_width"><%= f.submit "Delete", class: "btn btn-block delete_comment_button" %></span>
+              <% end %>
+            </li>
           </ul>
         </li>
       </ul>
     </nav>
   <% end %>
+
 
   <div class="comment_space">
     <div class="comment_content"><%= link_to comment.user.username, comment.user,

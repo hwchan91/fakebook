@@ -1,0 +1,2 @@
+$(".comment_form_<%= @updated_comment.post.id %>").html("<%= escape_javascript(render('comments/comment_form', post_id: @updated_comment.post.id)) %>");
+$(".comments_of_post_<%= @updated_comment.post.id %>").html("<%= escape_javascript(render('comments/all_comments', comments: @updated_comment.post.comments)) %>");

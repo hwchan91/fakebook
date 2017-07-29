@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :post_correct_user, only: [:edit, :update, :destroy]
 
   def create
     @post = current_user.posts.build(post_params)
@@ -32,14 +32,15 @@ class PostsController < ApplicationController
   def show
     @page = "individual_post"
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   private
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :picture)
     end
 
-    def correct_user
+    def post_correct_user
       @post = current_user.posts.find(params[:id])
       redirect_to root_url if @post.nil?
     end

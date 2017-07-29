@@ -4,7 +4,7 @@
       <ul class="nav navbar-nav navbar-right post_edit_button">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle test" data-toggle="dropdown">
-            <b class="caret"></b>
+            <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to "Edit post", edit_post_path(post) %></li>
@@ -23,19 +23,44 @@
       <span class="created_at"><%= time_ago_in_words(post.created_at) %> ago</span>
     <% end %>
   </div>
-    <span class="content"><%= post.content %></span>
-    <% unless @page == "individual_post" %>
-      <div class="post_link"><%= link_to "Full post", post %></div>
+
+  <span class="post_content">
+    <%= post.content %>
+    <% if post.picture? %>
+    <div class="picture""><%= image_tag post.picture.url %></div>
     <% end %>
-</div>
+  </span>
 
+  <% unless @page == "individual_post" %>
+    <div class="post_link"><%= link_to "Full post", post %></div>
+  <% end %>
 
-<div class="comment_section">
-  <div class="comment_form">
-    <%= render "comments/comment_form", post_id: post.id  %>
+  <div class="like_counts_<%= post.id %>">
+    <%= render "likes/like_count_sentence", post: post %>
   </div>
 
-  <div id="comments_of_post_<%= post.id %>">
-    <%= render "comments/all_comments", comments: post.comments %>
+  <div class="post_footer">
+    <table>
+      <tr>
+        <td>
+          <div class="like_button_<%= post.id %>">
+            <%= render 'likes/like_button', post: post %>
+          </div>
+        </td>
+        <td>
+          <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="comment_section" style="display:none;" >
+    <div class="comment_form comment_form_<%= post.id %>">
+      <%= render "comments/comment_form", post_id: post.id  %>
+    </div>
+
+    <div class="comments_of_post_<%= post.id %>">
+      <%= render "comments/all_comments", comments: post.comments %>
+    </div>
   </div>
 </div>

@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-filestyle
+//= jasny-bootstrap.min
 //= require_tree .

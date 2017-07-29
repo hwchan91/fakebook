@@ -1,0 +1,5 @@
+<% if @change != false %>
+$(".comments_of_post_<%= @comment.post.id %>").children(".comment").css("display", "true");
+<% end %>
+$(".comment_form_<%= @comment.post.id %>").html("<%= escape_javascript(render('comments/comment_form', post_id: @comment.post.id, comment: @comment)) %>");
+$("#comment-<%= @comment.id %>").css("display", "none");

@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     @page = "profile"
     @user = User.find(params[:id])
     @posts = @user.posts.includes(:user)
+    @comment = Comment.new
   end
 
 #  def my_friends

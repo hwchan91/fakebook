@@ -17,5 +17,11 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :destroy, :update]
   resources :friend_requests, only: [:create, :destroy, :update]
   resources :posts, only: [:create, :edit, :update, :destroy, :show]
-  resources :comments, only: [:create, :destroy, :update, :edit]
+  resources :comments, only: [:create, :destroy, :update, :edit] do
+    member do
+      get :show_edit_comment_window, as: 'window'
+    end
+  end
+  get 'show_edit_comment_window', to: 'comments#show_edit_comment_window'
+  resources :likes, only: [:create, :destroy]
 end

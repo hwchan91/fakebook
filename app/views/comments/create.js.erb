@@ -1,1 +1,6 @@
+<% if false %>
 $("#comments_of_post_<%= @post.id %>").html("<%= escape_javascript(render('comments/all_comments', comments: @post.comments)) %>");
+<% end %>
+
+$(".comment_textarea_<%= @post.id %>").val('');
+$(".comments_of_post_<%= @post.id %>").append("<%= escape_javascript(render('comments/comment', comment: @comment)) %>");

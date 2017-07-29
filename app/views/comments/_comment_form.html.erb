@@ -1,13 +1,11 @@
-<div class="comment-form" >
-  <%= form_for(:comment, url: {controller: "comments", action: "create"}, class: "new_comment", remote: true) do |f| %>
-    <div class="form-group">
-      <div><%= hidden_field_tag :post_id, post_id %></div>
-      <div class="comment_field">
-        <%= f.text_area :content, cols: "1000", rows: "3",  placeholder: "Write a comment...", class: "comment_textarea" %>
-      </div>
-      <div>
-        <%= f.submit "Post", class: "btn btn-primary post_button" %>
-      </div>
+<%= form_for(@comment, remote: true) do |f| %>
+  <div class="form-group">
+    <div><%= hidden_field_tag :post_id, post_id %></div>
+    <div class="comment_field">
+      <%= f.text_area :content, cols: "1000", rows: "3",  placeholder: "Write a comment...", class: "comment_textarea_#{ post_id }" %>
     </div>
-  <% end %>
-</div>
+    <div>
+      <%= f.submit "Post", class: "btn btn-primary post_button" %>
+    </div>
+  </div>
+<% end %>

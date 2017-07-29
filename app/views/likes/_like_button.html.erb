@@ -1,0 +1,14 @@
+<% if !post.liked_by?(current_user) %>
+  <span class="glyphicon glyphicon-thumbs-up"></span>
+  <%= form_for(post.liked_user_relationships.build, remote: true) do |f| %>
+    <%= hidden_field_tag :post_id, post.id %>
+    <%= f.submit "Like", class: "btn btn-block", id:"like_submit_button" %>
+  <% end %>
+<% else %>
+  <span class="glyphicon glyphicon-thumbs-up unlike-glyph"></span>
+  <%= form_for(post.liked_user_relationships.find_by(user_id: current_user.id),
+               html: { method: :delete },
+               remote: true) do |f| %>
+    <%= f.submit "Unlike", class: "btn btn-block", id:"unlike_submit_button"  %>
+  <% end %>
+<% end %>

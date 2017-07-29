@@ -12,6 +12,7 @@ class FriendshipsController < ApplicationController
     end
   end
 
+
   #Triggers on Unfriend
   def destroy
     @user = Friendship.find(params[:id]).friend
