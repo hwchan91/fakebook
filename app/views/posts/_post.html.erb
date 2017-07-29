@@ -26,10 +26,13 @@
 
   <span class="post_content">
     <%= post.content %>
-    <% if post.picture? %>
-    <div class="picture""><%= image_tag post.picture.url %></div>
-    <% end %>
   </span>
+  <% if post.picture? %>
+    <div class="picture_div">
+      <%= image_tag post.picture.url, class: "picture" %>
+    </div>
+  <% end %>
+
 
   <% unless @page == "individual_post" %>
     <div class="post_link"><%= link_to "Full post", post %></div>

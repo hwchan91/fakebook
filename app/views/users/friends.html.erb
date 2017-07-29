@@ -1,5 +1,6 @@
 <% if params[:id] == 0 %>
   <h1>Friends</h1>
+  <%= render 'logged_in_profile_menu' %>
 <%else %>
   <h1><%= link_to @user.username, @user %></h1><br>
   <h3>Friends</h3>

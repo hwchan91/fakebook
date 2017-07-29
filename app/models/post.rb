@@ -13,6 +13,8 @@ class Post < ApplicationRecord
                                      dependent:   :destroy
   has_many :liked_users, through: :liked_user_relationships, source: :user
 
+  validate :picture_size
+
   def liked_by?(user)
     !liked_user_relationships.find_by(user_id: user.id).nil?
   end
@@ -37,7 +39,11 @@ class Post < ApplicationRecord
     else
       sentence = arr[0].to_s
     end
-
   end
 
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, "should be less than 5MB")
+    end
+  end
 end

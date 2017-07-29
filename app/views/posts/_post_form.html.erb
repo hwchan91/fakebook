@@ -11,7 +11,7 @@
       <div class="col-xs-6">
         <%= f.file_field :picture, class: "filestyle upload_file", :'data-input' => "false",
             :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Photos",
-            :'data-buttonBefore' => "true" %>
+            :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
       </div>
       <div class="col-xs-6">
         <%= f.submit "Post", class: "btn btn-primary post_button"%>
@@ -19,3 +19,12 @@
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $('#post_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>

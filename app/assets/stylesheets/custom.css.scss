@@ -28,7 +28,7 @@
 
 .profile_menu div {
   float: left;
-  width: 33.3%;
+  width: 25%;
 
 }
 
@@ -83,9 +83,6 @@
   font-size: 1.2em;
 }
 
-.picture {
-  padding-left: 10px;
-}
 
 textarea {
   resize: none;
@@ -173,6 +170,7 @@ textarea {
 
 .full_width {
   width: 180px;
+  overflow: hidden;
 
 }
 
@@ -270,4 +268,9 @@ textarea {
 
 .upload_file {
   display: inline;
+}
+
+.picture {
+  max-width: 100%;
+  width: 100%;
 }

@@ -136,4 +136,8 @@ class User < ApplicationRecord
     liked_posts.delete(post)
   end
 
+  def posts_with_pic
+    posts.select{ |p| p.picture? }
+  end
+
 end
