@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   get '/friends', to: 'users#friends' , id: 0
   get '/requests', to: 'users#requests'
   get '/outgoing', to: 'users#outgoing'
-  get 'suggestions', to: 'users#suggestions'
-  resources :users, only: [:show] do
+  get '/suggestions', to: 'users#suggestions'
+  get '/add-avatar', to: 'users#add_avatar'
+  resources :users, only: [:show, :update] do
     member do
       get :friends
+      get :photos
     end
 #    collection do
 #      get :suggestions
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   end
   resources :friendships, only: [:create, :destroy, :update]
   resources :friend_requests, only: [:create, :destroy, :update]
-  resources :posts, only: [:create, :edit, :update, :destroy, :show]
+  resources :posts, only: [:new, :create, :edit, :update, :destroy, :show]
   resources :comments, only: [:create, :destroy, :update, :edit] do
     member do
       get :show_edit_comment_window, as: 'window'
@@ -24,4 +26,5 @@ Rails.application.routes.draw do
   end
   get 'show_edit_comment_window', to: 'comments#show_edit_comment_window'
   resources :likes, only: [:create, :destroy]
+  resources :post_attachments
 end

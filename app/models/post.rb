@@ -1,19 +1,16 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
-
-  default_scope -> { order(updated_at: :desc) }
-
-  mount_uploader :picture, PictureUploader
-
-  validates :user, presence: true
-  validates :content, presence: true
-
   has_many :liked_user_relationships, class_name:  "Like",
                                      dependent:   :destroy
   has_many :liked_users, through: :liked_user_relationships, source: :user
+  has_many :post_attachments, dependent:   :destroy
+  accepts_nested_attributes_for :post_attachments
 
-  validate :picture_size
+  default_scope -> { order(updated_at: :desc) }
+  validates :user, presence: true
+  #validates :content, allow_blank: true
+  validate :text_or_photos
 
   def liked_by?(user)
     !liked_user_relationships.find_by(user_id: user.id).nil?
@@ -41,9 +38,10 @@ class Post < ApplicationRecord
     end
   end
 
-  def picture_size
-    if picture.size > 5.megabytes
-      errors.add(:picture, "should be less than 5MB")
+  def text_or_photos
+    if content.strip.empty? and post_attachments.blank?
+      errors.add(:content, "cannot be blank unless photos are added")
     end
   end
+
 end

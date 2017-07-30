@@ -1,10 +1,6 @@
 <h1><%= @user.username %></h1>
 <%= render 'logged_in_profile_menu' %>
 
-<% @user.posts_with_pic.each do |p| %>
-<%= link_to (image_tag p.picture.url, class: "picture_thumbnail"), p %>
-<% end %>
-
 
 <div class="row">
   <div class="col-sm-2"></div>

@@ -1,0 +1,16 @@
+<%= image_tag @user.avatar.url %>
+
+
+<%= form_for(@user) do |f| %>
+
+  <div class="field">
+    <%= f.file_field :avatar,
+            class: "filestyle upload_file", :'data-input' => "false",
+            :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Add avatar",
+            :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>

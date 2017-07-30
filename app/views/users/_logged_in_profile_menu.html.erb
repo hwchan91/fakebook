@@ -13,11 +13,13 @@
 
 <div class="profile_menu">
     <% if current_user == @user %>
+      <div><%= link_to "Photos", photos_user_path, style: "font-weight: bold;" %></div>
       <div><%= link_to "Friends", friends_path %></div>
       <div><%= link_to "Incoming Requests", requests_path %></div>
       <div><%= link_to "Outgoing Requests", outgoing_path %></div>
       <div><%= link_to "Add More Friends?", suggestions_path %></div>
     <% else %>
+      <div><%= link_to "Photos", photos_user_path, style: "font-weight: bold;" %></div>
       <div><%= link_to "Friends", friends_user_path(@user) %></div>
     <% end %>
 </div>

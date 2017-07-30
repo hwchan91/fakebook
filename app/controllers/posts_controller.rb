@@ -3,12 +3,24 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :post_correct_user, only: [:edit, :update, :destroy]
 
+  def new
+    @post = Post.new
+#    @post_attachment = @post.post_attachments.build
+  end
+
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to root_url
+#      if !params[:post_attachments].nil?
+#        params[:post_attachments]['picture'].each do |p|
+#          @post_attachment = @post.post_attachments.create!(:picture  => p)
+#        end
+#      end
+      redirect_to @post
+#      redirect_to root_url
     else
-      render 'static_pages/home'
+#      @post_attachment = @post.post_attachments.build
+      render 'new'
     end
   end
 
@@ -37,7 +49,8 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:content, :picture)
+      #params.require(:post).permit(:content, post_attachment_attributes: [:id, :post_id, :picture])
+      params.require(:post).permit(:content, post_attachments_attributes: ["picture", "@original_filename", "@content_type", "@headers", "_destroy", "id"])
     end
 
     def post_correct_user

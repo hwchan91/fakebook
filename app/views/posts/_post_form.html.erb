@@ -1,24 +1,51 @@
+<%= request.referrer %>
+
 <div class="logged-in-user-info">
   <%= current_user.username %>
 </div>
 
 <div class="post-form">
-  <%= form_for(@post) do |f| %>
+  <%= form_for(@post, :html => { :multipart => true }) do |f| %>
     <div class="field">
       <%= f.text_area :content, cols: "1000", rows: "6", placeholder: "Compose new post..." %>
     </div>
+
+
     <div class="row">
-      <div class="col-xs-6">
-        <%= f.file_field :picture, class: "filestyle upload_file", :'data-input' => "false",
-            :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Photos",
-            :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
-      </div>
+      <%= f.fields_for :post_attachments,  @post.post_attachments.build do |p| %>
+        <div class="col-xs-6">
+          <%= f.file_field :picture, :multiple => true, name: "post[post_attachments_attributes][][picture]",
+              class: "filestyle upload_file", :'data-input' => "false",
+              :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Photos",
+              :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
+        </div>
+      <% end %>
+
       <div class="col-xs-6">
         <%= f.submit "Post", class: "btn btn-primary post_button"%>
       </div>
     </div>
   <% end %>
 </div>
+
+
+<% if !@post.post_attachments[0].nil? %>
+  <br>
+  <div class="picture_div">
+    <%  @post.post_attachments.each do |att| %>
+      <% unless att.picture.blank? %>
+        <div class="thumbnails">
+          <%= image_tag(att.picture.url, class: "picture") %>
+          <%= link_to "Delete Photo", att, method: :delete %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+
+    <%#= link_to "Edit Attachment", edit_post_attachment_path(att) %>
+
 
 <script type="text/javascript">
   $('#post_picture').bind('change', function() {

@@ -14,19 +14,17 @@ class User < ApplicationRecord
                               dependent:   :destroy
   has_many :sent_requests, through: :active_requests, source: :receiver
   has_many :received_requests, through: :passive_requests, source: :requestor
-
-
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
-
   has_many :posts, dependent: :destroy
-
   has_many :comments, dependent: :destroy
-
   has_many :like_post_relationships, class_name:  "Like",
                                     dependent:   :destroy
   has_many :liked_posts, through: :like_post_relationships, source: :post
+  has_many :post_attachments, through: :posts
+  has_attached_file :avatar
 
+  validates_attachment :avatar, presence: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
   def friend_request(other_user)
     sent_requests << other_user
@@ -136,8 +134,13 @@ class User < ApplicationRecord
     liked_posts.delete(post)
   end
 
-  def posts_with_pic
-    posts.select{ |p| p.picture? }
-  end
+#  def pictures
+#    pics = []
+#    posts_with_pics = posts.select{ |p| !p.post_attachments.nil? }
+#    posts_with_pics.each do |p|
+#      pics += p.post_attachments
+#    end
+#    pics
+#  end
 
 end

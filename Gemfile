@@ -37,7 +37,8 @@ gem 'faker',          '1.7.3'
 gem 'carrierwave',             '1.1.0'
 gem 'mini_magick',             '4.7.0'
 gem 'fog',                     '1.40.0'
-
+gem "paperclip", "~> 5.0.0"
+gem 'aws-sdk', '~> 2.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

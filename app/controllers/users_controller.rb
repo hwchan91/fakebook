@@ -42,4 +42,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def photos
+    @user = User.find(params[:id])
+  end
+
+  def add_avatar
+    @user = current_user
+  end
+
+  def update
+    if current_user.update_attributes(user_params)
+      redirect_to current_user
+    else
+      render 'add_avatar'
+    end
+  end
+
+  private
+    def user_params
+      params.require(:user).permit(:avatar)
+    end
+
 end

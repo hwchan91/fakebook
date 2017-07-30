@@ -27,9 +27,11 @@
   <span class="post_content">
     <%= post.content %>
   </span>
-  <% if post.picture? %>
+  <% if !post.post_attachments.blank? %>
     <div class="picture_div">
-      <%= image_tag post.picture.url, class: "picture" %>
+      <%  post.post_attachments.each do |att| %>
+        <%= image_tag att.picture_url, class: "picture" %>
+      <% end %>
     </div>
   <% end %>
 

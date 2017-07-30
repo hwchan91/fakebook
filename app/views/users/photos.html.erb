@@ -1,0 +1,16 @@
+<h1><%= @user.username %></h1>
+
+<h3>Photos</h3>
+
+<div class="picture_div">
+  <%  @user.post_attachments.each do |att| %>
+    <% unless att.picture.blank? %>
+      <div class="thumbnails">
+        <%= link_to image_tag(att.picture.url, class: "picture"), att.post %>
+        <% if att.post.user == current_user %>
+          <%= link_to "Delete Photo", att, method: :delete %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
