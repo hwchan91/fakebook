@@ -14,20 +14,24 @@ end
 user = User.first
 users = User.all
 
-users.each do |u|
-  20.times do
-    u.friend_request(users[i+1])
-    users[i+1].confirm_request(u)
-  end
-  if u.id < 30 and u.id > 21
-    user.friend_request(u)
-  elsif u.id < 40
-    u.friend_request(user)
+(0..49).each do |i|
+  (0..19).each do |j|
+    users[i].friend_request(users[i+j+1])
+    users[i+j+1].confirm_request(users[i])
   end
 end
 
+#users.each do |u|
+#  if u.id < 35 and u.id > 25
+#    user.friend_request(u)
+#  elsif u.id < 45
+#    u.friend_request(user)
+#  end
+#end
 
 
-50.times do
+
+
+5.times do
   users.each { |user| user.posts.create!(content:  Faker::Lorem.sentence(5)) }
 end
