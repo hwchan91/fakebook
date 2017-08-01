@@ -1,7 +1,6 @@
-<%= request.referrer %>
-
 <div class="logged-in-user-info">
-  <%= current_user.username %>
+  <div class="avatar"><%= image_tag current_user.avatar.url(:thumb) %></div>
+  <div class="current_user_username"><%= current_user.username %></div>
 </div>
 
 <div class="post-form">
@@ -29,7 +28,7 @@
 </div>
 
 
-<% if !@post.post_attachments[0].nil? %>
+<% if !@post.post_attachments.blank? %>
   <br>
   <div class="picture_div">
     <%  @post.post_attachments.each do |att| %>
@@ -42,9 +41,6 @@
     <% end %>
   </div>
 <% end %>
-
-
-    <%#= link_to "Edit Attachment", edit_post_attachment_path(att) %>
 
 
 <script type="text/javascript">

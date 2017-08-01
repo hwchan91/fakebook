@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730110618) do
+ActiveRecord::Schema.define(version: 20170801101054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,9 +57,12 @@ ActiveRecord::Schema.define(version: 20170730110618) do
 
   create_table "post_attachments", force: :cascade do |t|
     t.integer "post_id"
-    t.string "picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -67,7 +70,6 @@ ActiveRecord::Schema.define(version: 20170730110618) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
   end
 

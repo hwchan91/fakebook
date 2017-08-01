@@ -6,7 +6,7 @@
   <%  @user.post_attachments.each do |att| %>
     <% unless att.picture.blank? %>
       <div class="thumbnails">
-        <%= link_to image_tag(att.picture.url, class: "picture"), att.post %>
+        <%= link_to image_tag(att.picture.url(:medium), class: "picture"), att.post %>
         <% if att.post.user == current_user %>
           <%= link_to "Delete Photo", att, method: :delete %>
         <% end %>

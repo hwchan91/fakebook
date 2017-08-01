@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   validates :username, presence: true, uniqueness: true
 
-
   has_many :active_requests, class_name:  "FriendRequest",
                              foreign_key: "requestor_id",
                              dependent:   :destroy
@@ -22,9 +21,12 @@ class User < ApplicationRecord
                                     dependent:   :destroy
   has_many :liked_posts, through: :like_post_relationships, source: :post
   has_many :post_attachments, through: :posts
-  has_attached_file :avatar
-
-  validates_attachment :avatar, presence: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
+  has_attached_file :avatar, :default_url => "/images/:style/default_avatar.jpg", :styles => {
+      :comment_thumb => "40x40#",
+      :thumb => "60x60#",
+      :small  => "300x300#",
+      :medium => "400x400#" }
+  validates_attachment :avatar, allow_nil: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
   def friend_request(other_user)
     sent_requests << other_user

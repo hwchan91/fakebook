@@ -1,4 +1,14 @@
-<h1><%= @user.username %></h1>
+<div class="profile_name_avatar">
+  <%= image_tag @user.avatar.url(:thumb) if @user.avatar.present? %>
+  <h1><%= @user.username %></h1>
+</div>
+<br>
+<% if current_user == @user %>
+  <%= link_to "Change avatar", add_avatar_path if @user.avatar.present? %>
+  <%= link_to "Add avatar", add_avatar_path if !@user.avatar.present? %>
+<% end %>
+
+
 <%= render 'logged_in_profile_menu' %>
 
 

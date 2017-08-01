@@ -1,23 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body { background: #f8f8f8 !important; }
 
-.test {
-
-  width: 100%;
-}
-
-.test2 {
-  width: 100%;
-  display: flex;
-  background-color: blue;
-}
-
-.test3 {
-  width: 100%;
-  display: block;
-  background-color: green;
-}
 
 .profile_menu {
   text-align: center;
@@ -28,15 +13,21 @@
 
 .profile_menu div {
   float: left;
-  width: 18%;
+  width: 20%;
 
 }
 
-.profile_menu a {
+.profile_menu a, .profile_menu a:hover {
   display: block;
   height: 50px;
   width: 100%;
   line-height: 50px;
+  color: black;
+  background-color: transparent;
+}
+
+.photos_link {
+  font-weight: bold;
 }
 
 .username, .username:hover {
@@ -68,9 +59,29 @@
 }
 
 .post-info {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 50px;
+  float: left;
+  display: inline;
+}
+
+.avatar, .post_user_info {
+  float: left;
+}
+
+.avatar {
+  padding: 10px 10px;
+}
+
+.post_user_info {
+  padding-top: 20px;
+}
+
+.current_user_username {
+  padding-top: 25px;
+  font-weight: bold;
+}
+
+.clear {
+  clear: both;
 }
 
 .created_at, .updated_at {
@@ -111,11 +122,15 @@ textarea {
     height: 5px;
     width: auto;
     padding-right: 30px;
+    background-color: transparent;
 }
 
 .navbar-default .post .navbar-nav .dropdown .dropdown-toggle,
-.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle{
-    background-color: transparent;
+.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle,
+#post_nav a, #post_nav a:hover, #post_nav a:active,
+#comment_nav a, #comment_nav a:hover, #comment_nav a:active {
+  color: black;
+  background-color: transparent;
 }
 
 .navbar-default .post .navbar-nav .dropdown .dropdown-toggle:focus,
@@ -149,7 +164,6 @@ textarea {
 
 .after_comment {
   clear: both;
-
 }
 
 .comment {
@@ -169,9 +183,8 @@ textarea {
 
 
 .full_width {
-  width: 180px;
+  width: 200px;
   overflow: hidden;
-
 }
 
 .edit_comment_button, .delete_comment_button{
@@ -191,6 +204,8 @@ textarea {
 .comment_section {
   border: 1px solid #e8e8e8;
   background-color: #f6f7f9;
+  display: inline-block;
+  width: 100%;
 }
 
 .comment_form {
@@ -201,12 +216,59 @@ textarea {
   padding: 10px 10px 0px 10px;
 }
 
+.submit_comment_avatar {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-bottom: 30px;
+}
+
+.comment_box {
+  display: inline-block;
+}
+
+.comment_avatar {
+  float: left;
+  padding: 10px 10px;
+  width: 70px;
+
+}
 
 .comment_space {
-  width: 95%;
-  height: auto;
-  overflow: auto;
+  float: left;
+  padding-top: 5px;
+  display: inline-block;
 }
+
+.comment_content {
+  display: inline-block;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.comment table {
+ width: 100%;
+}
+
+.comment table td {
+  vertical-align: top;
+}
+
+#comment_nav a{
+  padding-top: 0px;
+}
+
+
+.comment_nav, .post_nav {
+  float: right;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  margin-top: 0px;
+  align: right;
+}
+
+
 
 .expand_comment_button {
   float: left;
@@ -274,6 +336,7 @@ textarea {
   max-width: 100%;
   width: 100%;
   padding-bottom: 10px;
+
 }
 
 .thumbnails {
@@ -283,6 +346,12 @@ textarea {
   float: left;
 }
 
-a:hover {
-  background-color: transparent;
+
+.profile_name_avatar, .profile_name_avatar h1 {
+  display: inline;
+  white-space:nowrap
+}
+
+.test {
+  width: 90%;
 }

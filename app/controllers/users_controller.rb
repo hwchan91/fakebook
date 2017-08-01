@@ -51,11 +51,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update_attributes(user_params)
-      redirect_to current_user
-    else
-      render 'add_avatar'
-    end
+      if current_user.update_attributes(user_params)
+        redirect_to current_user
+      else
+        @user = current_user
+        redirect_to add_avatar_url
+      end
+
   end
 
   private

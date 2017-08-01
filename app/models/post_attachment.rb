@@ -1,8 +1,12 @@
 class PostAttachment < ApplicationRecord
   mount_uploader :picture, PictureUploader
   belongs_to :post
+  has_attached_file :picture, :styles => {
+      :thumb => "100x100#",
+      :small  => "300x300#",
+      :medium => "400x400#" }
+  validates_attachment :picture, presence: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
-  validate :picture_size
 
   after_destroy do |att|
     post = att.post
@@ -11,10 +15,5 @@ class PostAttachment < ApplicationRecord
     end
   end
 
-  def picture_size
-    if picture.size > 5.megabytes
-      errors.add(:picture, "should be less than 5MB")
-    end
-  end
 
 end

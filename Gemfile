@@ -39,6 +39,8 @@ gem 'mini_magick',             '4.7.0'
 gem 'fog',                     '1.40.0'
 gem "paperclip", "~> 5.0.0"
 gem 'aws-sdk', '~> 2.3.0'
+gem 'bootstrap-filestyle-rails'
+gem 'jquery-turbolinks'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

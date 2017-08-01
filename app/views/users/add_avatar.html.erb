@@ -1,16 +1,19 @@
-<%= image_tag @user.avatar.url %>
-
+<% button_text = (@user.avatar.present?) ? "Change avatar" : "Add avatar" %>
 
 <%= form_for(@user) do |f| %>
-
   <div class="field">
     <%= f.file_field :avatar,
             class: "filestyle upload_file", :'data-input' => "false",
-            :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Add avatar",
+            :'data-buttonName' => "btn btn-primary", :'data-buttonText' => button_text,
             :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
+    <%= f.text_area :whatever, value: "whatever", style: "display: none" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Submit" %>
   </div>
 <% end %>
+
+<br>
+
+<%= image_tag @user.avatar.url(:thumb) if !@user.avatar.blank? %>

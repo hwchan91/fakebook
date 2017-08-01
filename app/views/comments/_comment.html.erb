@@ -1,41 +1,51 @@
 <div class="comment" id="comment-<%= comment.id %>">
+<table>
+  <tr>
+    <td>
+      <div class="comment_avatar"><%= image_tag comment.user.avatar.url(:comment_thumb) %></div>
+    </td>
+    <td class="test">
+      <div class="comment_space">
+        <div class="comment_content"><%= link_to comment.user.username, comment.user,
+                                      class: "username comment_user" %>     <%= comment.content %></div>
+        <div class="after_comment">
+          <% if comment.created_at != comment.updated_at %>
+            <span class="updated_at"><p>Updated <%= time_ago_in_words(comment.updated_at) %> ago</p></span>
+          <% else %>
+            <span class="created_at"><p><%= time_ago_in_words(comment.created_at) %> ago</p></span>
+          <% end %>
+        </div>
+      </div>
+    </td>
 
-  <% if current_user == comment.user %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right comment_nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <%= form_for(:comment, html: { method: :get}, url: show_edit_comment_window_url, remote: true) do |f| %>
-                <%= hidden_field_tag :id, comment.id %>
-                <span class="full_width"><%= f.submit "Edit", class: "btn btn-block edit_comment_button" %></span>
-              <% end %>
-            </li>
-            <li>
-              <%= form_for(comment, html: { method: :delete }, remote: true) do |f| %>
-                <span class="full_width"><%= f.submit "Delete", class: "btn btn-block delete_comment_button" %></span>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  <% end %>
-
-
-  <div class="comment_space">
-    <div class="comment_content"><%= link_to comment.user.username, comment.user,
-                                  class: "username comment_user" %>     <%= comment.content %></div>
-    <div class="after_comment">
-      <% if comment.created_at != comment.updated_at %>
-        <span class="updated_at"><p>Updated <%= time_ago_in_words(comment.updated_at) %> ago</p></span>
-      <% else %>
-        <span class="created_at"><p><%= time_ago_in_words(comment.created_at) %> ago</p></span>
+      <% if current_user == comment.user %>
+        <td>
+          <div class="comment_nav">
+            <nav>
+              <ul class="nav navbar-nav">
+                <li class="dropdown" id="comment_nav">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= form_for(:comment, html: { method: :get}, url: show_edit_comment_window_url, remote: true) do |f| %>
+                        <%= hidden_field_tag :id, comment.id %>
+                        <span class="full_width"><%= f.submit "Edit", class: "btn btn-block edit_comment_button" %></span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= form_for(comment, html: { method: :delete }, remote: true) do |f| %>
+                        <span class="full_width"><%= f.submit "Delete", class: "btn btn-block delete_comment_button" %></span>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </td>
       <% end %>
-    </div>
-  </div>
-
+    </tr>
+  </table>
 </div>
