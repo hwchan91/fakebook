@@ -8,12 +8,12 @@ class PostAttachment < ApplicationRecord
   validates_attachment :picture, presence: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
 
-  after_destroy do |att|
-    post = att.post
-    if post.post_attachments.empty?
-      post.destroy unless post.nil?
-    end
-  end
+#  after_destroy do |att|
+#    post = att.post
+#    if post.post_attachments.empty?
+#      post.destroy unless !post.content.nil?
+#    end
+#  end
 
 
 end

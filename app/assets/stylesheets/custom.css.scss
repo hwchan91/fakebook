@@ -117,28 +117,10 @@ textarea {
   padding-right: 20px;
 }
 
-
-.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle{
-    height: 5px;
-    width: auto;
-    padding-right: 30px;
-    background-color: transparent;
-}
-
-.navbar-default .post .navbar-nav .dropdown .dropdown-toggle,
-.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle,
 #post_nav a, #post_nav a:hover, #post_nav a:active,
 #comment_nav a, #comment_nav a:hover, #comment_nav a:active {
   color: black;
   background-color: transparent;
-}
-
-.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:focus,
-.navbar-default .post .navbar-nav .dropdown .dropdown-toggle:hover,
-.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle:focus,
-.navbar-default .comment .navbar-nav .dropdown .dropdown-toggle:hover
-{
-   background-color: transparent;
 }
 
 .post {
@@ -281,7 +263,7 @@ textarea {
   text-align: center;
   color: black;
   line-height: 20px;
-
+  font-family: "Helvetica Neue", Helvetica,Arial, sans-serif;
 }
 
 .like_button, .unlike_button {

@@ -56,8 +56,11 @@ class PostAttachmentsController < ApplicationController
   # DELETE /post_attachments/1
   # DELETE /post_attachments/1.json
   def destroy
+    @post_attachment.picture = nil
+    @post_attachment.save
     @post_attachment.destroy
-    redirect_to request.referrer || root_url
+    @post =  @post_attachment.post
+    render 'posts/edit'
   end
 
   private

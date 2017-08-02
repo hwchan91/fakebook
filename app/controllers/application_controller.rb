@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
 
   # Stores the URL trying to be accessed.
   def store_location
-    unless session[:forwarding_url] == request.referrer
-      session[:forwarding_url] = request.referrer if request.get?
-    end
+    session[:forwarding_url] = request.referrer if request.get?
   end
 
     protected
