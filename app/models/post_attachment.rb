@@ -11,7 +11,7 @@ class PostAttachment < ApplicationRecord
 #  after_destroy do |att|
 #    post = att.post
 #    if post.post_attachments.empty?
-#      post.destroy unless !post.content.nil?
+#      post.destroy unless !post.content.empty?
 #    end
 #  end
 

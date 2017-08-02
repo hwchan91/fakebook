@@ -1,3 +1,9 @@
+<% if @page == "edit_post" %>
+  <div style="float: right">
+    <%= link_to "Delete post", @post, method: :delete, data: { confirm: "are your sure?" }, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
 <div class="logged-in-user-info">
   <div class="avatar"><%= image_tag current_user.avatar.url(:thumb) %></div>
   <div class="current_user_username"><%= current_user.username %></div>
@@ -5,8 +11,9 @@
 
 <div class="post-form">
   <%= form_for(@post, :html => { :multipart => true }) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-      <%= f.text_area :content, cols: "1000", rows: "6", placeholder: "Compose new post..." %>
+      <%= f.text_area :content, cols: "1000", rows: "6", placeholder: "Compose new post...", class: "form-control" %>
     </div>
 
 
@@ -34,7 +41,7 @@
     <%  @post.post_attachments.each do |att| %>
       <% unless att.picture.blank? %>
         <div class="thumbnails">
-          <%= image_tag(att.picture.url, class: "picture") %>
+          <%= image_tag(att.picture.url(:thumb), class: "picture") %>
           <%= link_to "Delete Photo", att, method: :delete %>
         </div>
       <% end %>

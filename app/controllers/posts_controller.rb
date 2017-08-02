@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 #          @post_attachment = @post.post_attachments.create!(:picture  => p)
 #        end
 #      end
-      redirect_to @post
+      redirect_to request.referrer || root_url
 #      redirect_to root_url
     else
 #      @post_attachment = @post.post_attachments.build
@@ -26,17 +26,25 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to request.referrer || root_url
+    if request.referrer.to_s.include?(@post.id.to_s)
+      redirect_to root_url
+    else
+      redirect_to request.referrer || root_url
+    end
   end
 
   def edit
-    store_location
+    if !request.referrer.to_s.include?("edit")
+      store_location
+    end
+    @page = "edit_post"
   end
 
   def update
     if @post.update_attributes(post_params)
       redirect_back_or(root_url)
     else
+      @page = "edit_post"
       render 'edit'
     end
   end

@@ -1,0 +1,7 @@
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <% object.errors.full_messages.each do |msg| %>
+      <p style="color: red;"><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>
