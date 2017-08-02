@@ -2,7 +2,9 @@
 <table>
   <tr>
     <td>
-      <div class="comment_avatar"><%= image_tag comment.user.avatar.url(:comment_thumb) %></div>
+      <div class="comment_avatar">
+        <%= render 'shared/avatar', user: comment.user %>
+      </div>
     </td>
     <td class="test">
       <div class="comment_space">

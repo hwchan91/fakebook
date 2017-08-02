@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     session[:forwarding_url] = request.referrer if request.get?
   end
 
+  def store_location_before_signed_in
+    session[:original_url] = request.original_url
+  end
+
     protected
       def configure_permitted_parameters
           devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password) }
@@ -21,7 +25,11 @@ class ApplicationController < ActionController::Base
 
       #redirects to show page after sign in; default redirects to root
       def after_sign_in_path_for(user)
-        current_user
+        if session[:original_url]
+          session[:original_url]
+        else
+          root_path
+        end
       end
 
 

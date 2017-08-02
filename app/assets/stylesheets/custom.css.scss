@@ -198,7 +198,7 @@ textarea {
   padding: 10px 10px 0px 10px;
 }
 
-.submit_comment_avatar {
+.submit_comment_avatar img {
   margin-top: 10px;
   margin-left: 10px;
   padding-bottom: 30px;
@@ -210,9 +210,19 @@ textarea {
 
 .comment_avatar {
   float: left;
-  padding: 10px 10px;
-  width: 70px;
+  width: 40px;
+  margin: 0px 10px
+}
 
+.submit_comment_avatar {
+  width: 40px;
+  margin-right: 10px;
+}
+
+
+.avatar_thumb {
+  width: 100%;
+  max-width: 100%;
 }
 
 .comment_space {
@@ -271,10 +281,11 @@ textarea {
   float:left;
 }
 
-#like_submit_button, #unlike_submit_button {
+#like_submit_button, #unlike_submit_button, #like_submit_button a {
   background-color: transparent;
   font-weight: bold;
   padding-left: 15px;
+  color: black;
 }
 
 #unlike_submit_button {
@@ -336,4 +347,8 @@ textarea {
 
 .test {
   width: 90%;
+}
+
+.friend_request_avatar img {
+  padding-right: 10px;
 }

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'static_pages#home'
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   get '/test', to: 'static_pages#test'
   get '/friends', to: 'users#friends' , id: 0
   get '/requests', to: 'users#requests'
@@ -28,4 +29,5 @@ Rails.application.routes.draw do
   get 'show_edit_comment_window', to: 'comments#show_edit_comment_window'
   resources :likes, only: [:create, :destroy]
   resources :post_attachments
+  get '/sign_in', to: 'users#sign_in'
 end

@@ -1,11 +1,14 @@
 <div class="profile_name_avatar">
-  <%= image_tag @user.avatar.url(:thumb) if @user.avatar.present? %>
+  <div class="avatar">
+    <%= render 'shared/avatar', user: current_user %>
+  </div>
   <h1><%= @user.username %></h1>
 </div>
 <br>
+
 <% if current_user == @user %>
-  <%= link_to "Change avatar", add_avatar_path if @user.avatar.present? %>
-  <%= link_to "Add avatar", add_avatar_path if !@user.avatar.present? %>
+  <%= link_to "Change avatar", add_avatar_path if (@user.avatar.present? or @user.fb_avatar )%>
+  <%= link_to "Add avatar", add_avatar_path if !@user.avatar.present? and !@user.fb_avatar %>
 <% end %>
 
 <div class="profile_page_friend_button" >

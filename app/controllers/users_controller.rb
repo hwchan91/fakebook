@@ -64,7 +64,9 @@ class UsersController < ApplicationController
         @user = current_user
         redirect_to add_avatar_url
       end
+  end
 
+  def sign_in
   end
 
   private

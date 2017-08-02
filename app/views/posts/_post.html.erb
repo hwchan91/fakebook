@@ -18,7 +18,9 @@
   <% end %>
 
   <div class="post-info">
-    <div class="avatar"><%= image_tag post.user.avatar.url(:thumb) %></div>
+    <div class="avatar">
+      <%= render 'shared/avatar', user: post.user %>
+    </div>
     <div class="post_user_info">
       <%= link_to post.user.username, post.user, class: "username" %>
       <% if post.created_at != post.updated_at %>
@@ -47,7 +49,12 @@
   <% end %>
 
   <div class="like_counts_<%= post.id %>">
-    <%= render "likes/like_count_sentence", post: post %>
+    <% if !current_user.nil? %>
+      <%= render "likes/like_count_sentence", post: post %>
+    <% elsif post.liked_users.count > 0 %>
+      <span class="glyphicon glyphicon-thumbs-up like_counter"></span>
+      <%= post.liked_users.count %>
+    <% end %>
   </div>
 
   <div class="post_footer">
@@ -55,23 +62,40 @@
       <tr>
         <td>
           <div class="like_button_<%= post.id %>">
-            <%= render 'likes/like_button', post: post %>
+            <% if !current_user.nil? %>
+              <%= render 'likes/like_button', post: post %>
+            <% else %>
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <div class="btn btn-block" id="like_submit_button"><%= link_to "Like", sign_in_path %></div>
+            <% end %>
           </div>
         </td>
         <td>
-          <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
+          <% if !current_user.nil? %>
+            <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
+          <% else %>
+            <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <%= link_to "Comment", sign_in_path %></span></div>
+          <% end %>
+        </td>
+        <td>
+          <div class="expand_comment_button">
+            <span class="glyphicon glyphicon-share-alt">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=warm-plains-72294.herokuapp.com/posts/<%= post.id %>" target="_blank">Share on Facebook</a>
+          </span></div>
         </td>
       </tr>
     </table>
   </div>
 
-  <div class="comment_section" style="display:none;" >
-    <div class="comment_form comment_form_<%= post.id %>">
-      <%= render "comments/comment_form", post_id: post.id  %>
-    </div>
+  <% if !current_user.nil? %>
+    <div class="comment_section" style="display:none;" >
+      <div class="comment_form comment_form_<%= post.id %>">
+        <%= render "comments/comment_form", post_id: post.id  %>
+      </div>
 
-    <div class="comments_of_post_<%= post.id %>">
-      <%= render "comments/all_comments", comments: post.comments %>
+      <div class="comments_of_post_<%= post.id %>">
+        <%= render "comments/all_comments", comments: post.comments %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

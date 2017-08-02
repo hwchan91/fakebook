@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   include ApplicationHelper
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :post_correct_user, only: [:edit, :update, :destroy]
 
   def new
@@ -50,6 +50,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    store_location_before_signed_in
     @page = "individual_post"
     @post = Post.find(params[:id])
     @comment = Comment.new

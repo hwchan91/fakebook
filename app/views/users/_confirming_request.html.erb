@@ -1,19 +1,34 @@
-Friend request received
-
 <table>
-  <tr>
-    <td style="padding: 0px 10px">
-      <%= form_for(current_user.friendships.build, remote: true) do |f| %>
-        <div><%= hidden_field_tag :friend_id, user.id %></div>
-        <div><%= hidden_field_tag :page, @page %></div>
-        <%= f.submit "Accept", class: "btn btn-primary" %>
+    <tr>
+      <% unless @page == "profile" %>
+        <td>
+          <div class="friend_request_avatar"><%= render 'shared/avatar', user: user %><div>
+        </td>
       <% end %>
-    </td>
+
     <td>
-      <%= form_for(current_user.passive_requests.find_by(requestor_id: user.id), remote: true) do |f| %>
-       <div><%= hidden_field_tag :page, @page %></div>
-        <%= f.submit "Deny", class: "btn btn-secondary" %>
+      <% if @page != "profile" %>
+        <div><%= link_to user.username, user, class:"username" %></div>
       <% end %>
+
+      Friend request received
+      <table>
+        <tr>
+          <td style="padding: 0px 10px">
+            <%= form_for(current_user.friendships.build, remote: true) do |f| %>
+              <div><%= hidden_field_tag :friend_id, user.id %></div>
+              <div><%= hidden_field_tag :page, @page %></div>
+              <%= f.submit "Accept", class: "btn btn-primary" %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_for(current_user.passive_requests.find_by(requestor_id: user.id), remote: true) do |f| %>
+             <div><%= hidden_field_tag :page, @page %></div>
+              <%= f.submit "Deny", class: "btn btn-secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 </table>

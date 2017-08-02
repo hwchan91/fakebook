@@ -28,6 +28,8 @@ class User < ApplicationRecord
       :medium => "400x400#" }
   validates_attachment :avatar, allow_nil: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
+  devise :omniauthable, :omniauth_providers => [:facebook]
+
   def friend_request(other_user)
     sent_requests << other_user
   end
@@ -93,7 +95,7 @@ class User < ApplicationRecord
   end
 
   def feed
-    Post.where("user_id IN (?) OR user_id = ?", friend_ids, id )
+    Post.where("user_id IN (?) OR user_id = ?", friend_ids, id ).order(updated_at: :desc)
   end
 
 #  def confirmed_friends
@@ -144,5 +146,19 @@ class User < ApplicationRecord
 #    end
 #    pics
 #  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.username = auth.info.name   # assuming the user model has a name
+      user.fb_avatar = auth.info.image # assuming the user model has an image
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      # user.skip_confirmation!
+    end
+
+  end
+
 
 end

@@ -1,5 +1,22 @@
-Request accepted
-<%= form_for(current_user.friendships.find_by(friend_id: user.id), remote: true) do |f| %>
-  <div><%= hidden_field_tag :requestor_id, user.id %></div>
-  <%= f.submit "Undo", class: "btn btn-secondary" %>
-<% end %>
+<table>
+    <tr>
+      <% unless @page == "profile" %>
+        <td>
+          <div class="friend_request_avatar"><%= render 'shared/avatar', user: user %><div>
+        </td>
+      <% end %>
+
+    <td>
+      <% if @page != "profile" %>
+        <div><%= link_to user.username, user, class:"username" %></div>
+      <% end %>
+
+      Request accepted
+      <%= form_for(current_user.friendships.find_by(friend_id: user.id), remote: true) do |f| %>
+        <div><%= hidden_field_tag :requestor_id, user.id %></div>
+        <%= f.submit "Undo", class: "btn btn-secondary" %>
+      <% end %>
+
+    </td>
+  </tr>
+</table>

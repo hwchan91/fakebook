@@ -1,12 +1,24 @@
-<% if @page != "profile" %>
-    <div><%= link_to user.username, user, class:"username" %></div>
-<% end %>
+<table>
+    <tr>
+      <% unless @page == "profile" %>
+        <td>
+          <div class="friend_request_avatar"><%= render 'shared/avatar', user: user %><div>
+        </td>
+      <% end %>
 
-<p>Request sent</p>
+    <td>
+      <% if @page != "profile" %>
+          <div><%= link_to user.username, user, class:"username" %></div>
+      <% end %>
 
-<%= form_for(current_user.active_requests.find_by(receiver_id: user.id),
-             html: { method: :delete },
-             remote: true) do |f| %>
-  <div><%= hidden_field_tag :page, @page %></div>
-  <%= f.submit "Undo", class: "btn btn-secondary" %>
-<% end %>
+      <p>Request sent</p>
+
+      <%= form_for(current_user.active_requests.find_by(receiver_id: user.id),
+                   html: { method: :delete },
+                   remote: true) do |f| %>
+        <div><%= hidden_field_tag :page, @page %></div>
+        <%= f.submit "Undo", class: "btn btn-secondary" %>
+      <% end %>
+    </td>
+  </tr>
+</table>

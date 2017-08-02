@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td>
-      <%= image_tag current_user.avatar.url(:comment_thumb), class: "submit_comment_avatar" %>
+      <div class="submit_comment_avatar"><%= render 'shared/avatar', user: current_user %></div>
     </td>
     <td>
       <%= form_for(@comment, remote: true) do |f| %>

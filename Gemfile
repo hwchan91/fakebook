@@ -42,6 +42,7 @@ gem 'aws-sdk', '~> 2.3.0'
 gem 'bootstrap-filestyle-rails'
 gem 'jquery-turbolinks'
 gem "figaro"
+gem 'omniauth-facebook'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
