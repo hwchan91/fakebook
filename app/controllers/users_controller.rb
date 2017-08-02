@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 #  end
 
   def friends
+    @page = "friend"
     if params[:id] == current_user.id
       redirect_to "/friends"
     elsif params[:id] == 0
@@ -43,7 +44,13 @@ class UsersController < ApplicationController
   end
 
   def photos
-    @user = User.find(params[:id])
+    if params[:id] == current_user.id
+      redirect_to "/photos"
+    elsif params[:id] == 0
+      @user = current_user
+    else
+      @user = User.find(params[:id])
+    end
   end
 
   def add_avatar

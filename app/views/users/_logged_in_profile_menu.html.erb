@@ -1,19 +1,7 @@
-<div class="profile_page_friend_button", id="profile_page_friend_button_<%= @user.id %>">
-  <% unless @user == current_user %>
-    <% if current_user.friend?(@user) %>
-      <%= render partial: "unfriend", locals: { user: @user }%>
-    <% elsif current_user.awaiting_confirm?(@user) %>
-      <%= render partial: "confirm_request", locals: { user: @user }%>
-    <% else %>
-      <%= render partial: "request", locals: { user: @user } %>
-    <% end %>
-  <% end %>
-</div>
-</br>
-
+<br>
 <div class="profile_menu">
     <% if current_user == @user %>
-      <div><%= link_to "Photos", photos_user_path(@user), class: "photos_link" %></div>
+      <div><%= link_to "Photos", photos_path, class: "photos_link" %></div>
       <div><%= link_to "Friends", friends_path %></div>
       <div><%= link_to "Incoming Requests", requests_path %></div>
       <div><%= link_to "Outgoing Requests", outgoing_path %></div>

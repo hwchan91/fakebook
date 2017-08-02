@@ -21,15 +21,13 @@ users = User.all
   end
 end
 
-#users.each do |u|
-#  if u.id < 35 and u.id > 25
-#    user.friend_request(u)
-#  elsif u.id < 45
-#    u.friend_request(user)
-#  end
-#end
-
-
+users.each do |u|
+  if u.id < 35 and u.id > 25
+    user.friend_request(u)
+  elsif u.id < 45 and u.id >= 35
+    u.friend_request(user)
+  end
+end
 
 
 5.times do

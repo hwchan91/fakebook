@@ -1,6 +1,11 @@
-<h1><%= @user.username %></h1>
-
-<h3>Photos</h3>
+<% if params[:id] == 0 %>
+  <h1>Photos</h1>
+  <%= render 'logged_in_profile_menu' %>
+<%else %>
+  <h1><%= link_to @user.username, @user %></h1>
+  <%= render 'logged_in_profile_menu'%>
+  <h3>Photos</h3>
+<% end %>
 
 <div class="picture_div">
   <%  @user.post_attachments.each do |att| %>

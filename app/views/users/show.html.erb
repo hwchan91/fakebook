@@ -8,8 +8,10 @@
   <%= link_to "Add avatar", add_avatar_path if !@user.avatar.present? %>
 <% end %>
 
-
-<%= render 'logged_in_profile_menu' %>
+<div class="profile_page_friend_button" >
+<%= render 'friend_button_together', user: @user %>
+</div>
+<%= render 'logged_in_profile_menu'%>
 
 
 <div class="row">

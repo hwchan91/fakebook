@@ -1,9 +1,5 @@
 <div class="user_row" id="request_row_<%= user.id %>">
 
-<% if @page != "profile" %>
-    <%= link_to user.username, user, class:"username" %>
-<% end %>
-
     <div id="request_form_<%= user.id %>">
       <% if current_user.pending_request?(user) %>
         <%= render partial: 'undo_send_request', locals: {user: user} %>

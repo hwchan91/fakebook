@@ -1,3 +1,7 @@
+<% if @page != "profile" %>
+    <div><%= link_to user.username, user, class:"username" %></div>
+<% end %>
+
 <%= form_for(current_user.active_requests.build, remote: true) do |f| %>
   <div><%= hidden_field_tag :receiver_id, user.id %></div>
   <div><%= hidden_field_tag :page, @page %></div>

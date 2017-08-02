@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/outgoing', to: 'users#outgoing'
   get '/suggestions', to: 'users#suggestions'
   get '/add_avatar', to: 'users#add_avatar'
+  get '/photos', to: 'users#photos', id: 0
   resources :users, only: [:show, :update] do
     member do
       get :friends

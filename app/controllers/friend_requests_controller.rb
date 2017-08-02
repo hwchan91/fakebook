@@ -25,6 +25,7 @@ class FriendRequestsController < ApplicationController
   #triggers when Deny Request from Another
   def update
     @user = FriendRequest.find(params[:id]).requestor
+    @page = params[:page]
     current_user.deny_request(@user)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }

@@ -2,7 +2,8 @@
   <h1>Friends</h1>
   <%= render 'logged_in_profile_menu' %>
 <%else %>
-  <h1><%= link_to @user.username, @user %></h1><br>
+  <h1><%= link_to @user.username, @user %></h1>
+  <%= render 'logged_in_profile_menu'%>
   <h3>Friends</h3>
 <% end %>
 
@@ -15,6 +16,6 @@
   <% end %>
 <% else %>
 <ul class="friends">
-  <%= render partial: "unfriend", collection: @friends, as: :user %>
+  <%= render partial: "friend_button_together", collection: @friends, as: :user %>
 </ul>
 <% end %>

@@ -1,0 +1,11 @@
+<div class="", id="profile_page_friend_button_<%= user.id %>">
+  <% unless user == current_user %>
+    <% if current_user.friend?(user) %>
+      <%= render partial: "unfriend", locals: { user: user }%>
+    <% elsif current_user.awaiting_confirm?(user) %>
+      <%= render partial: "confirm_request", locals: { user: user }%>
+    <% else %>
+      <%= render partial: "request", locals: { user: user } %>
+    <% end %>
+  <% end %>
+</div>
