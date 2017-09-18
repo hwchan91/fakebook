@@ -39,7 +39,7 @@ end
 ################
 # For Redis
 
-if false
+
 Post.includes(:user, :liked_users, :post_attachments).all.each do |post|
   post_attr = post.attributes
   post_attr["liked_user_ids"] = post.liked_user_ids
@@ -55,6 +55,7 @@ Post.includes(:user, :liked_users, :post_attachments).all.each do |post|
   $redis.zadd("user_#{post.user_id}_posts", post.updated_at.to_i, post_attr.to_json)
 end
 
+if false
 User.count.times do |i|
   $redis.del("user_#{i+1}_posts")
 end
