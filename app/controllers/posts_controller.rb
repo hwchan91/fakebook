@@ -54,6 +54,7 @@ class PostsController < ApplicationController
     @page = "individual_post"
     @post = Post.find(params[:id])
     @comment = Comment.new
+    @friend_ids = current_user.friend_ids
   end
 
   private

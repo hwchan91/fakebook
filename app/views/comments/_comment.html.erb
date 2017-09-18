@@ -22,29 +22,13 @@
 
       <% if current_user == comment.user %>
         <td>
-          <div class="comment_nav">
-            <nav>
-              <ul class="nav navbar-nav">
-                <li class="dropdown" id="comment_nav">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <%= form_for(:comment, html: { method: :get}, url: show_edit_comment_window_url, remote: true) do |f| %>
-                        <%= hidden_field_tag :id, comment.id %>
-                        <span class="full_width"><%= f.submit "Edit", class: "btn btn-block edit_comment_button" %></span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= form_for(comment, html: { method: :delete }, remote: true) do |f| %>
-                        <span class="full_width"><%= f.submit "Delete", class: "btn btn-block delete_comment_button" %></span>
-                      <% end %>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+          <div class="dropdown comment_nav">
+            <button class="btn dropdown-toggle comment_edit_button" type="button" data-toggle="dropdown">
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right" id="comment_menu">
+              <li><%= link_to "Edit", show_edit_comment_window_path(id: comment.id), class: "btn btn-block edit_comment_button", remote: true %></li>
+              <li><%= link_to "Delete", comment_path(comment.id), method: :delete, class: "btn btn-block delete_comment_button", remote: true %></li>
+            </ul>
           </div>
         </td>
       <% end %>

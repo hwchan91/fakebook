@@ -43,7 +43,12 @@ gem 'bootstrap-filestyle-rails'
 gem 'jquery-turbolinks'
 gem "figaro"
 gem 'omniauth-facebook'
-
+gem 'rack-attack'
+gem 'redis'
+gem 'redis-namespace'
+gem 'rack-mini-profiler'
+gem 'rails-perftest'
+gem 'ruby-prof'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -54,6 +59,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'brakeman', :require => false
 end
 
 group :development do

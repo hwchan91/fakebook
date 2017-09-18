@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   resources :likes, only: [:create, :destroy]
   resources :post_attachments
   get '/sign_in', to: 'users#sign_in'
+  get '/get_comments', to: 'comments#get_comments'
 end

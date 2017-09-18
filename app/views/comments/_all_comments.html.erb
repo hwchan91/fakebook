@@ -1,1 +1,6 @@
-<%= render partial: "comments/comment", collection: comments, as: :comment %>
+<div class="comment_form comment_form_<%= @post_id %>">
+    <%= render "comments/comment_form", post_id: @post_id  %>
+</div>
+<div class="comments_of_post_<%= @post_id %>">
+    <%= render partial: "comments/comment", collection: comments, as: :comment %>
+</div>

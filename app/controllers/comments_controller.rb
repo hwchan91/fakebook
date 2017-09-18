@@ -59,6 +59,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def get_comments
+    @post_id = params[:post_id]
+    @comments = Comment.where(post_id: params[:post_id])
+    respond_to do |format|
+      format.js { render file: "comments/popup.js.erb"}
+    end
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:content)

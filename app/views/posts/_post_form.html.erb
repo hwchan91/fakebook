@@ -1,6 +1,6 @@
 <% if @page == "edit_post" %>
   <div style="float: right">
-    <%= link_to "Delete post", @post, method: :delete, data: { confirm: "are your sure?" }, class: "btn btn-primary" %>
+    <%= link_to "Delete post", post_path(@post.id), method: :delete, class: "btn btn-primary" %>
   </div>
 <% end %>
 
@@ -37,13 +37,13 @@
 </div>
 
 
-<% if !@post.post_attachments.blank? %>
+<% if @post.post_attachments %>
   <br>
   <div class="picture_div">
     <%  @post.post_attachments.each do |att| %>
       <% unless att.picture.blank? %>
         <div class="thumbnails">
-          <%= image_tag(att.picture.url(:thumb), class: "picture") %>
+          <%= image_tag(att.picture.url(:thumb).html_safe, class: "picture") %>
           <%= link_to "Delete Photo", att, method: :delete %>
         </div>
       <% end %>

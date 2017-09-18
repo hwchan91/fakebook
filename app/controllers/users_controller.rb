@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts.includes(:user)
     @comment = Comment.new
+    @friend_ids = current_user.friend_ids
   end
 
 #  def my_friends
@@ -68,6 +69,7 @@ class UsersController < ApplicationController
 
   def sign_in
   end
+
 
   private
     def user_params

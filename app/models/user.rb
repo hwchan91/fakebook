@@ -95,7 +95,7 @@ class User < ApplicationRecord
   end
 
   def feed
-    Post.where("user_id IN (?) OR user_id = ?", friend_ids, id ).order(updated_at: :desc)
+    Post.includes(:user, :liked_users, :post_attachments).where("user_id IN (?) OR user_id = ?", friend_ids, id ).order(updated_at: :desc)
   end
 
 #  def confirmed_friends
@@ -135,7 +135,7 @@ class User < ApplicationRecord
   end
 
   def unlike(post)
-    liked_posts.delete(post)
+    liked_posts.destroy(post)
   end
 
 #  def pictures
@@ -157,7 +157,14 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
+  end
 
+  def avatar_present?
+    avatar.present?
+  end
+
+  def avatar_url_thumb
+    avatar.url(:thumb)
   end
 
 

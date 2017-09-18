@@ -1,28 +1,27 @@
-<div class="post", id="post_<%= post.id %>" >
-  <% if current_user == post.user %>
-    <div class="post_nav" >
-      <nav>
-        <ul class="nav navbar-nav navbar-right post_edit_button">
-          <li class="dropdown" id="post_nav">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Edit post", edit_post_path(post) %></li>
-              <li><%= link_to "Delete post", post, method: :delete, data: { confirm: "are your sure?" } %></li>
-            </ul
-          </li>
+<% require 'ostruct' %>
+<% post = JSON.parse(post) if post.is_a? String %>
+<% post = OpenStruct.new(post) if post.is_a? Hash %>
+
+<div class="post", id="post_<%= post['id'] %>" >
+  <% if current_user.id == post.user_id %>
+
+      <div class="dropdown post_nav">
+        <button class="btn dropdown-toggle post_edit_button" type="button" data-toggle="dropdown">
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right" id="post_menu">
+          <li><%= link_to "Edit post", edit_post_path(post.id) %></li>
+          <li><%= link_to "Delete post", post_path(post.id), method: :delete, data: { confirm: "are your sure?" } %></li>
         </ul>
-      </nav>
-    </div>
+      </div>
+
   <% end %>
 
   <div class="post-info">
     <div class="avatar">
-      <%= render 'shared/avatar', user: post.user %>
+        <%= render 'shared/avatar', user: post.user %>
     </div>
     <div class="post_user_info">
-      <%= link_to post.user.username, post.user, class: "username" %>
+      <%= link_to post.user['username'], user_path(post.user_id), class: "username" %>
       <% if post.created_at != post.updated_at %>
         <p class="updated_at">Updated <%= time_ago_in_words(post.updated_at) %> ago</p>
       <% else %>
@@ -35,27 +34,24 @@
   <span class="post_content">
     <%= post.content %>
   </span>
-  <% if !post.post_attachments.blank? %>
+
+  <% if post.post_attachments[0] %>
     <div class="picture_div">
-      <%  post.post_attachments.each do |att| %>
+      <% post.post_attachments.each do |att| %>
+        <% att = OpenStruct.new(att) if att['picture_url'] %>
         <span><%= image_tag att.picture_url, class: "picture" %></span>
       <% end %>
     </div>
   <% end %>
 
-
   <% unless @page == "individual_post" %>
-    <div class="post_link"><%= link_to "Full post", post %></div>
+    <div class="post_link"><%= link_to "Full post", post_path(post.id) %></div>
   <% end %>
 
   <div class="like_counts_<%= post.id %>">
-    <% if !current_user.nil? %>
-      <%= render "likes/like_count_sentence", post: post %>
-    <% elsif post.liked_users.count > 0 %>
-      <span class="glyphicon glyphicon-thumbs-up like_counter"></span>
-      <%= post.liked_users.count %>
-    <% end %>
+    <%= render "likes/like_count_sentence", post: post, names: post['liked_user_names']  %>
   </div>
+ 
 
   <div class="post_footer">
     <table>
@@ -71,8 +67,8 @@
           </div>
         </td>
         <td>
-          <% if !current_user.nil? %>
-            <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
+          <% if current_user %>
+            <div class="expand_comment_button" id="expand_comment_button_<%= post.id %>" disableonclick = "btnFunc('hey', this)" data-id="<%= post.id %>"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
           <% else %>
             <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <%= link_to "Comment", sign_in_path %></span></div>
           <% end %>
@@ -88,14 +84,16 @@
   </div>
 
   <% if !current_user.nil? %>
-    <div class="comment_section" style="display:none;" >
-      <div class="comment_form comment_form_<%= post.id %>">
-        <%= render "comments/comment_form", post_id: post.id  %>
-      </div>
-
-      <div class="comments_of_post_<%= post.id %>">
-        <%= render "comments/all_comments", comments: post.comments %>
-      </div>
+    <div class="comment_section" id="comment_section_<%= post.id %>" style="display:none;" >
     </div>
   <% end %>
+
 </div>
+
+<script>
+btnFunc = function(text, elem) {
+  console.log($(elem))
+  alert(text);
+  $(elem).prop('onclick',null).off('click', 'btnFunc');
+}
+</script>

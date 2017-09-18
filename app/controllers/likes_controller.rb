@@ -3,6 +3,7 @@ class LikesController < ApplicationController
   
   def create
     @post = Post.find(params[:post_id])
+    @friend_ids = current_user.friend_ids
     current_user.like(@post)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }
@@ -13,7 +14,7 @@ class LikesController < ApplicationController
 
   #Triggers on Unfriend
   def destroy
-    @post = Like.find(params[:id]).post
+    @post = Like.find_by(post_id: params[:post_id], user_id: current_user.id).post
     current_user.unlike(@post)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }

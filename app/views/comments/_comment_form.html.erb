@@ -1,10 +1,12 @@
 <table>
   <tr>
     <td>
+      <% if false %>
       <div class="submit_comment_avatar"><%= render 'shared/avatar', user: current_user %></div>
+      <% end %>
     </td>
     <td>
-      <%= form_for(@comment, remote: true) do |f| %>
+      <%= form_for(:comment, url: comments_path, remote: true) do |f| %>
         <div class="form-group">
           <div><%= hidden_field_tag :post_id, post_id %></div>
           <div class="comment_field">

@@ -1,0 +1,1 @@
+$redis = Redis::Namespace.new("fakebook", :redis => Redis.new(password: ENV["redis_pw"]))

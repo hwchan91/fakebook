@@ -1,7 +1,9 @@
-<% if user.avatar.present? %>
-  <%= image_tag user.avatar.url(:thumb), class: "avatar_thumb" %>
+<% user= OpenStruct.new(user) if user.is_a? Hash %>
+
+<% if user.avatar_present? %>
+  <%= image_tag user.avatar_url_thumb, class: "avatar_thumb" %>
 <% elsif user.fb_avatar %>
-   <%= image_tag user.fb_avatar, class: "avatar_thumb" %>
+  <%= image_tag user.fb_avatar, class: "avatar_thumb" %>
 <% else %>
-  <%= image_tag user.avatar.url(:thumb), class: "avatar_thumb" %>
+  <%= image_tag user.avatar_url_thumb, class: "avatar_thumb" %>
 <% end %>
