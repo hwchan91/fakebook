@@ -33,7 +33,7 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  config.action_controller.asset_host = "#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
   config.assets.digest = true
   config.assets.enabled = true
   
