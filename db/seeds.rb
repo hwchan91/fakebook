@@ -1,4 +1,3 @@
-if false
 User.create!(username:  "Example User",
              email: "example@mail.com",
              password:              "password")
@@ -34,11 +33,13 @@ end
 5.times do
   users.each { |user| user.posts.create!(content:  Faker::Lorem.sentence(5)) }
 end
-end
+
 
 ################
 # For Redis
-
+User.count.times do |i|
+  $redis.del("user_#{i+1}_posts")
+end
 
 Post.includes(:user, :liked_users, :post_attachments).all.each do |post|
   post_attr = post.attributes
@@ -55,11 +56,6 @@ Post.includes(:user, :liked_users, :post_attachments).all.each do |post|
   $redis.zadd("user_#{post.user_id}_posts", post.updated_at.to_i, post_attr.to_json)
 end
 
-if false
-User.count.times do |i|
-  $redis.del("user_#{i+1}_posts")
-end
 
-end
 
 
