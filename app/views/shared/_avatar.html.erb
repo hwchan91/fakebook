@@ -5,5 +5,5 @@
 <% elsif user.fb_avatar %>
   <%= image_tag user.fb_avatar, class: "avatar_thumb" %>
 <% else %>
-  <%= image_tag user.avatar_url_thumb, class: "avatar_thumb" %>
+  <%= image_tag "/images/thumb/default_avatar.jpg", class: "avatar_thumb" %>
 <% end %>
