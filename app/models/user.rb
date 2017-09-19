@@ -21,7 +21,7 @@ class User < ApplicationRecord
                                     dependent:   :destroy
   has_many :liked_posts, through: :like_post_relationships, source: :post
   has_many :post_attachments, through: :posts
-  has_attached_file :avatar, :default_url => "/images/:style/default_avatar.jpg", :styles => {
+  has_attached_file :avatar, :default_url => "assets/images/:style/default_avatar.jpg", :styles => {
       :comment_thumb => "40x40#",
       :thumb => "60x60#",
       :small  => "300x300#",
