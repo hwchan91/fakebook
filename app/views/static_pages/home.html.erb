@@ -1,10 +1,11 @@
 <% if !current_user.nil? %>
   <div class="row">
-    <div class="col-lg-2">
-    </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-lg-offset-2">
       <%= render 'posts/post_form' %>
-      <%= render partial: "posts/post", collection: @feed, as: :post %>
+      <div id="feed_container">
+        <%= render partial: "posts/post", collection: @feed, as: :post %>
+      </div>
+      <div class="digg_pagination"><%= will_paginate @feed %></div>
     </div>
   </div>
 

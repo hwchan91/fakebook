@@ -23,7 +23,7 @@
       <%= f.fields_for :post_attachments,  @post.post_attachments.build do |p| %>
         <div class="col-xs-6">
           <%= f.file_field :picture, :multiple => true, name: "post[post_attachments_attributes][][picture]",
-              class: "filestyle upload_file", :'data-input' => "false",
+              class: "filestyle upload_file", :'data-input' => "false", :'iconName' => "glyphicon glyphicon-folder-open",
               :'data-buttonName' => "btn btn-primary", :'data-buttonText' => "Add Photos",
               :'data-buttonBefore' => "true", accept: 'image/jpeg,image/gif,image/png' %>
         </div>

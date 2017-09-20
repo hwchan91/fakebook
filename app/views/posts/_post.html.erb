@@ -8,17 +8,20 @@
     <div class="avatar"><%= render 'shared/avatar', user: post.user %></div>
     <div class="post_user_info">
       <%= link_to post.user['username'], user_path(post.user_id), class: "username" %>
+
+<%# cache "posts/#{post.id}-#{post.updated_at.strftime('%Y%m%d%H%M%S%N')[0..-4]}" do %> <!-- cache starts -->
+<% cache post do %>
       <%= render 'shared/updated_time', obj: post %>
     </div>
   </div>
   <div class="clear"></div>
-<%# cache "posts/#{post.id}-#{post.updated_at.strftime('%Y%m%d%H%M%S%N')[0..-4]}-middle" do %> <!-- cache starts -->
   <span class="post_content"><%= post.content %></span>
   <%= render 'posts/attachments', post: post %>
+<% end %> <!-- cache end  -->
+
   <% unless @page == "individual_post" %>
     <div class="post_link"><%= link_to "Full post", post_path(post.id) %></div>
   <% end %>
-<%# end %> <!-- cache end  -->
 
   <div class="like_counts_<%= post.id %>">
     <%= render "posts/like_count_sentence", post: post, names: post['liked_user_names']  %>

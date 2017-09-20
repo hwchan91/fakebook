@@ -1,28 +1,21 @@
 $(document).on('turbolinks:load', function(){
-  $('.expand_comment_button').click(function() {
+//$(document).ready(function(){
+  init_filestyle();
+  
+  function init_filestyle() {
+    $(":file.filestyle").filestyle({
+      input: false,
+      buttonText: "Add Photos",
+      buttonName: "btn btn-primary",
+      buttonBefore: true,
+      iconName: 'glyphicon glyphicon-folder-open'
+    });
+  };
+
+  $('.expand_comment_button').click(function(e) {
+    btnFunc(e);
     $(this).closest(".post_footer").next(".comment_section").toggle();
   });
-
-});
-
-$(document).ready(function(){
-  $('.expand_comment_button').click(function() {
-    $(this).closest(".post_footer").next(".comment_section").toggle();
-  });
-
-});
-
-$(document).ready(function(){
-    $("#hide").click(function(){
-        $("p").hide();
-    });
-    $("#show").click(function(){
-        $("p").show();
-    });
-});
-
-$(document).ready(function(){
-  $('.expand_comment_button').on('click', btnFunc);
 
   function btnFunc(e) {
     var post_id = $(e.target).parents('.expand_comment_button').data("id")
@@ -30,4 +23,17 @@ $(document).ready(function(){
     $.get("/get_comments", data); 
     $(e.target).parents('.expand_comment_button').off('click', btnFunc);
   }
+
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url = $('.pagination .next_page').attr('href')
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 100) {
+        $('.pagination').text("Loading...")
+        $.getScript(url)
+      };
+    });
+    $(window).scroll()
+  }
+  
+
 });

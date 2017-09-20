@@ -1,5 +1,48 @@
+<% if false %> <%# After trying, rendering partials had a huge cost on performance thus I switched back %>
+    <table><tr>
+        <td><%= render 'posts/like_button', post: post %></td>
+        <td><%= render 'posts/expand_comment_button', post: post %></td>
+        <td><%= render 'posts/share_button', post: post %></td>
+    </tr></table>
+<% end %>
+
+
 <table><tr>
-    <td><%= render 'posts/like_button', post: post %></td>
-    <td><%= render 'posts/expand_comment_button', post: post %></td>
-    <td><%= render 'posts/share_button', post: post %></td>
+    <td>
+        <div class="like_button_<%= post.id %>">
+        <% if current_user %>
+            <% if !post.liked_user_ids.include? current_user.id %>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <%= link_to "Like", likes_path(post_id: post.id), class: "btn", id:"like_submit_button", method: :post, remote: true %>
+            <% else %>
+                <span class="glyphicon glyphicon-thumbs-up unlike-glyph"></span>
+                <%= link_to "Unlike", like_path(id: 1, post_id: post.id), class: "btn", id:"unlike_submit_button", method: :delete, remote: true %>
+            <% end %>
+        <% else %>
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <div class="btn btn-block" id="like_submit_button"><%= link_to "Like", sign_in_path %></div>
+        <% end %>
+        </div>
+    </td>
+
+    <td>
+        <% if current_user %>
+            <div class="expand_comment_button" id="expand_comment_button_<%= post.id %>" disableonclick = "btnFunc('hey', this)" data-id="<%= post.id %>">
+                <span class="glyphicon glyphicon-comment"></span> 
+                <a class="btn">Comment</a>
+            </div>
+        <% else %>
+            <div class="expand_comment_button">
+                <span class="glyphicon glyphicon-comment"></span> 
+                <%= link_to "Comment", sign_in_path, class: "btn" %>
+            </div>
+        <% end %>
+    </td>
+
+    <td>
+        <div class="share_button">
+            <span class="glyphicon glyphicon-share-alt"></span>
+            <%= link_to "Share on Facebook", "https://www.facebook.com/sharer/sharer.php?u=warm-plains-72294.herokuapp.com/posts/#{post.id}", html_options= {target: "_blank", class: "btn"} %>
+        </div>
+    </td>
 </tr></table>
