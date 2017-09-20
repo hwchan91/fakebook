@@ -1,5 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: font-path('glyphicons-halflings-regular.eot');
+  src: font-path('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    font-path('glyphicons-halflings-regular.woff') format('woff'), 
+    font-path('glyphicons-halflings-regular.ttf') format('truetype'), 
+    font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
 
 body { background: #f8f8f8 !important; }
 
