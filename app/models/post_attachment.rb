@@ -2,7 +2,7 @@ class PostAttachment < ApplicationRecord
   include ApplicationHelper
 
   mount_uploader :picture, PictureUploader
-  belongs_to :post
+  belongs_to :post, touch: true
   has_attached_file :picture, :styles => {
       :thumb => "100x100#",
       :small  => "300x300#",

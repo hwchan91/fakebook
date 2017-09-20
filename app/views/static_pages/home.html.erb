@@ -1,5 +1,4 @@
 <% if !current_user.nil? %>
-<div class="container">
   <div class="row">
     <div class="col-lg-2">
     </div>
@@ -7,12 +6,7 @@
       <%= render 'posts/post_form' %>
       <%= render partial: "posts/post", collection: @feed, as: :post %>
     </div>
-
   </div>
-</div>
-
-
-
 
 <% else %>
   <div class="center jumbotron">

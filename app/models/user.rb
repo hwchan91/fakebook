@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include ApplicationHelper
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -29,6 +31,8 @@ class User < ApplicationRecord
   validates_attachment :avatar, allow_nil: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
 
   devise :omniauthable, :omniauth_providers => [:facebook]
+
+  after_update :update_redis
 
   def friend_request(other_user)
     sent_requests << other_user
@@ -68,7 +72,6 @@ class User < ApplicationRecord
     passive_requests.find_by(requestor_id: other_user.id).destroy
   end
 
-
   def unfriend(other_user)
     friendships.find_by(friend_id: other_user.id).destroy
     if active = active_requests.find_by(receiver_id: other_user.id)
@@ -77,7 +80,6 @@ class User < ApplicationRecord
       passive.destroy
     end
   end
-
 
   def friend?(other_user)
     !friendships.find_by(friend_id: other_user.id).nil?
@@ -98,38 +100,6 @@ class User < ApplicationRecord
     Post.includes(:user, :liked_users, :post_attachments).where("user_id IN (?) OR user_id = ?", friend_ids, id ).order(updated_at: :desc)
   end
 
-#  def confirmed_friends
-#    friendships.where(confirmed: true)
-#  end
-
-#  def confirmed_friend?(other_user)
-#    !confirmed_friends.find_by(friend_id: other_user.id).nil?
-#  end
-
-#  def pending
-#    friendships.where(confirmation_needed: false, confirmed: false)
-#  end
-
-#  def pending?(other_user)
-#    !pending.find_by(friend_id: other_user.id).nil?
-#  end
-
-#  def request
-#    friendships.where(confirmation_needed: true, confirmed: false)
-#  end
-
-#  def request?(other_user)
-#    !request.find_by(friend_id: other_user.id).nil?
-#  end
-
-#  def confirm(other_user)
-#    friendships.find_by(friend_id: other_user.id).update_attributes(confirmed: true)
-#  end
-
-#  def undo_confirm(other_user)
-#    friendships.find_by(friend_id: other_user.id).update_attributes(confirmed: false)
-#  end
-
   def like(post)
     liked_posts << post
   end
@@ -138,14 +108,6 @@ class User < ApplicationRecord
     liked_posts.destroy(post)
   end
 
-#  def pictures
-#    pics = []
-#    posts_with_pics = posts.select{ |p| !p.post_attachments.nil? }
-#    posts_with_pics.each do |p|
-#      pics += p.post_attachments
-#    end
-#    pics
-#  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -167,5 +129,9 @@ class User < ApplicationRecord
     avatar.url(:thumb)
   end
 
+  def update_redis
+    $redis.del("user_#{self.id}_posts")
+    self.posts.includes(:user, :liked_users, :post_attachments).each {|post| add_record_to_redis(post) }
+  end
 
 end

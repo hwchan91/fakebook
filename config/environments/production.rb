@@ -100,5 +100,20 @@ Rails.application.configure do
       s3_region: ENV['S3_REGION'],
       s3_host_name: ENV['S3_HOST_NAME']
     }
-}
+  }
+
+
+
+  config.cache_store = :dalli_store,
+                        (ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                        {:username => ENV["MEMCACHIER_USERNAME"],
+                        :password => ENV["MEMCACHIER_PASSWORD"],
+                        :failover => true,
+                        :socket_timeout => 1.5,
+                        :socket_failure_delay => 0.2,
+                        :down_retry_delay => 60,
+                        :expires_in => 1.day,
+                        :compress => true
+                        }
+
 end

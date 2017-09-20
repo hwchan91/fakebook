@@ -1,0 +1,8 @@
+<% if post.post_attachments[0] %>
+    <div class="picture_div">
+        <% post.post_attachments.each do |att| %>
+        <% att = OpenStruct.new(att) if att['picture_url'] %>
+        <span><%= image_tag att.picture_url, class: "picture" %></span>
+        <% end %>
+    </div>
+<% end %>

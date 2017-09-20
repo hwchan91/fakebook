@@ -52,6 +52,7 @@ gem 'ruby-prof'
 gem 'unicorn'
 gem "asset_sync"
 gem "fog-aws"
+gem 'dalli'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

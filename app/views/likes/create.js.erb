@@ -1,2 +1,2 @@
-$(".like_counts_<%= @post.id %>").html("<%= escape_javascript(render('likes/like_count_sentence', post: @post )) %>");
-$(".like_button_<%= @post.id %>").html("<%= escape_javascript(render('likes/like_button', post: @post )) %>");
+$(".like_counts_<%= @post.id %>").html("<%= escape_javascript(render('posts/like_count_sentence', post: @post )) %>");
+$(".like_button_<%= @post.id %>").html("<%= escape_javascript(render('posts/like_button', post: @post )) %>");

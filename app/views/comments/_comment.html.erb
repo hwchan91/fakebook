@@ -1,37 +1,16 @@
 <div class="comment" id="comment-<%= comment.id %>">
-<table>
-  <tr>
-    <td>
-      <div class="comment_avatar">
-        <%= render 'shared/avatar', user: comment.user %>
-      </div>
-    </td>
+<table><tr>
+    <td><div class="comment_avatar"><%= render 'shared/avatar', user: comment.user %></div></td>
     <td class="test">
       <div class="comment_space">
-        <div class="comment_content"><%= link_to comment.user.username, comment.user,
-                                      class: "username comment_user" %>     <%= comment.content %></div>
-        <div class="after_comment">
-          <% if comment.created_at != comment.updated_at %>
-            <span class="updated_at"><p>Updated <%= time_ago_in_words(comment.updated_at) %> ago</p></span>
-          <% else %>
-            <span class="created_at"><p><%= time_ago_in_words(comment.created_at) %> ago</p></span>
-          <% end %>
+        <div class="comment_content">
+          <%= link_to comment.user.username, comment.user, class: "username comment_user" %>     
+          <%= comment.content %>
         </div>
+        <div class="after_comment"><%= render 'shared/updated_time', obj: comment %></div>
       </div>
     </td>
-
-      <% if current_user == comment.user %>
-        <td>
-          <div class="dropdown comment_nav">
-            <button class="btn dropdown-toggle comment_edit_button" type="button" data-toggle="dropdown">
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right" id="comment_menu">
-              <li><%= link_to "Edit", show_edit_comment_window_path(id: comment.id), class: "btn btn-block edit_comment_button", remote: true %></li>
-              <li><%= link_to "Delete", comment_path(comment.id), method: :delete, class: "btn btn-block delete_comment_button", remote: true %></li>
-            </ul>
-          </div>
-        </td>
-      <% end %>
+    <td><%= render 'shared/toggle_menu' ,obj: comment %></td>
     </tr>
   </table>
 </div>

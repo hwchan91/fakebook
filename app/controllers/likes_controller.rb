@@ -11,10 +11,9 @@ class LikesController < ApplicationController
     end
   end
 
-
   #Triggers on Unfriend
   def destroy
-    @post = Like.find_by(post_id: params[:post_id], user_id: current_user.id).post
+    @post = Post.find(params[:post_id])
     current_user.unlike(@post)
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }

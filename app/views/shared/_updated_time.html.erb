@@ -1,0 +1,6 @@
+<% if obj.created_at != obj.updated_at %>
+    <p class="updated_at">Updated <%= time_ago_in_words(obj.updated_at) %> ago</p>
+<% else %>
+    <p class="created_at"><%= time_ago_in_words(obj.created_at) %> ago</p>
+<% end %>
+

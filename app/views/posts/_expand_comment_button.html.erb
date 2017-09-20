@@ -1,0 +1,5 @@
+<% if current_user %>
+    <div class="expand_comment_button" id="expand_comment_button_<%= post.id %>" disableonclick = "btnFunc('hey', this)" data-id="<%= post.id %>"><span class="glyphicon glyphicon-comment"> <a>Comment</a></span></div>
+<% else %>
+    <div class="expand_comment_button"><span class="glyphicon glyphicon-comment"> <%= link_to "Comment", sign_in_path %></span></div>
+<% end %>
