@@ -1,9 +1,8 @@
+<% cache [ current_user, post_id, "cmt-form" ] do %>
 <table>
   <tr>
     <td>
-      <% if false %>
       <div class="submit_comment_avatar"><%= render 'shared/avatar', user: current_user %></div>
-      <% end %>
     </td>
     <td>
       <%= form_for(:comment, url: comments_path, remote: true) do |f| %>
@@ -20,3 +19,4 @@
     </td>
   </tr>
 </table>
+<% end %>

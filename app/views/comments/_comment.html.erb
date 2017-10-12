@@ -1,16 +1,18 @@
-<div class="comment" id="comment-<%= comment.id %>">
-<table><tr>
-    <td><div class="comment_avatar"><%= render 'shared/avatar', user: comment.user %></div></td>
-    <td class="test">
-      <div class="comment_space">
-        <div class="comment_content">
-          <%= link_to comment.user.username, comment.user, class: "username comment_user" %>     
-          <%= comment.content %>
+<% cache comment do %>
+  <div class="comment" id="comment-<%= comment.id %>">
+  <table><tr>
+      <td><div class="comment_avatar"><%= render 'shared/avatar', user: comment.user %></div></td>
+      <td class="test">
+        <div class="comment_space">
+          <div class="comment_content">
+            <%= link_to comment.user.username, comment.user, class: "username comment_user" %>     
+            <%= comment.content %>
+          </div>
+          <div class="after_comment"><%= render 'shared/updated_time', obj: comment %></div>
         </div>
-        <div class="after_comment"><%= render 'shared/updated_time', obj: comment %></div>
-      </div>
-    </td>
-    <td><%= render 'shared/toggle_menu' ,obj: comment %></td>
-    </tr>
-  </table>
-</div>
+      </td>
+      <td><%= render 'shared/toggle_menu' ,obj: comment %></td>
+      </tr>
+    </table>
+  </div>
+<% end %>

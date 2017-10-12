@@ -2,22 +2,32 @@
 <% post = JSON.parse(post) if post.is_a? String %>
 <% post = OpenStruct.new(post) if post.is_a? Hash %>
 
-<div class="post", id="post_<%= post.id %>" >
-  <%= render 'shared/toggle_menu' ,obj: post %>
+<div class="post", id="post_<%= post.id %>">
+  <% if current_user and current_user.id == post.user_id %>
+    <%# cache "p#{post.id}-tog" do %>
+      <%= render 'shared/toggle_menu', obj: post %>
+    <%# end %>
+  <% end %>
+
+  <%# cache [ "u#{post.user.id}-pinfo", post.user.updated_at.to_i ] do %>
   <div class="post-info">
     <div class="avatar"><%= render 'shared/avatar', user: post.user %></div>
     <div class="post_user_info">
       <%= link_to post.user['username'], user_path(post.user_id), class: "username" %>
+  <%# end %>
+  
+  <%# cache post do %>
+  <%# Rails by default generates this %>
+  <%# cache "posts/#{post.id}-#{post.updated_at.strftime('%Y%m%d%H%M%S%N')[0..-4]}" do %> 
 
-<%# cache "posts/#{post.id}-#{post.updated_at.strftime('%Y%m%d%H%M%S%N')[0..-4]}" do %> <!-- cache starts -->
-<% cache post do %>
       <%= render 'shared/updated_time', obj: post %>
     </div>
   </div>
+
   <div class="clear"></div>
   <span class="post_content"><%= post.content %></span>
   <%= render 'posts/attachments', post: post %>
-<% end %> <!-- cache end  -->
+<%# end %>
 
   <% unless @page == "individual_post" %>
     <div class="post_link"><%= link_to "Full post", post_path(post.id) %></div>
@@ -37,7 +47,7 @@
 
 </div>
 
-<!--
+<% if false %>
 <script>
 btnFunc = function(text, elem) {
   console.log($(elem))
@@ -45,4 +55,4 @@ btnFunc = function(text, elem) {
   $(elem).prop('onclick',null).off('click', 'btnFunc');
 }
 </script>
--->
+<% end %>

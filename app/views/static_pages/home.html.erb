@@ -3,9 +3,9 @@
     <div class="col-lg-8 col-lg-offset-2">
       <%= render 'posts/post_form' %>
       <div id="feed_container">
-        <%= render partial: "posts/post", collection: @feed, as: :post %>
+        <%= render partial: "posts/post", collection: @feed.per_page, as: :post %>
       </div>
-      <div class="digg_pagination"><%= will_paginate @feed %></div>
+      <div class="digg_pagination"><%= paginate @feed %></div>
     </div>
   </div>
 

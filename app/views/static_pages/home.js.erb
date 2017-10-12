@@ -1,6 +1,6 @@
-$('#feed_container').append('<%= j render partial: "posts/post", collection: @feed, as: :post  %>');
+$('#feed_container').append('<%= j render partial: "posts/post", collection: @feed.per_page, as: :post  %>');
 <% if @feed.next_page %>
-    $('.pagination').replaceWith('<%= j will_paginate(@feed) %>')
+    $('.pagination').replaceWith('<%= j paginate(@feed) %>')
 <% else %>
     $('.pagination').remove();
 <% end %>

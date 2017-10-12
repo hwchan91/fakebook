@@ -5,21 +5,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-#    @post_attachment = @post.post_attachments.build
   end
 
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-#      if !params[:post_attachments].nil?
-#        params[:post_attachments]['picture'].each do |p|
-#          @post_attachment = @post.post_attachments.create!(:picture  => p)
-#        end
-#      end
       redirect_to request.referrer || root_url
-#      redirect_to root_url
     else
-#      @post_attachment = @post.post_attachments.build
       render 'new'
     end
   end
@@ -52,9 +44,15 @@ class PostsController < ApplicationController
   def show
     store_location_before_signed_in
     @page = "individual_post"
-    @post = Post.find(params[:id])
+    @post = Post.includes(:user, :liked_users).find_by(id: params[:id])
     @comment = Comment.new
-    @friend_ids = current_user.friend_ids
+    @friend_ids = current_user.friend_ids if current_user
+    if @post.nil?
+      render 'not_found'
+    end
+  end
+
+  def not_found
   end
 
   private

@@ -1,4 +1,4 @@
-<% cache user do %>
+<%# cache [ "u#{user.id}-av", user.updated_at.to_i ] do %>
   <% user= OpenStruct.new(user) if user.is_a? Hash %>
   <% if user.avatar_present? %>
     <%= image_tag user.avatar_url_thumb, class: "avatar_thumb" %>
@@ -7,4 +7,4 @@
   <% else %>
     <%= image_tag "thumb/default_avatar.jpg", class: "avatar_thumb" %>
   <% end %>
-<% end %>
+<%# end %>

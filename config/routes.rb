@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root to: 'static_pages#home'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
-  get '/test', to: 'static_pages#test'
   get '/friends', to: 'users#friends' , id: 0
   get '/requests', to: 'users#requests'
   get '/outgoing', to: 'users#outgoing'
@@ -31,4 +29,5 @@ Rails.application.routes.draw do
   resources :post_attachments
   get '/sign_in', to: 'users#sign_in'
   get '/get_comments', to: 'comments#get_comments'
+  get '/newest', to: 'static_pages#newest'
 end

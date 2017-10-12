@@ -1,22 +1,7 @@
 <% if current_user %>
   <% if post.liked_user_ids.count != 0 %>
     <span class="glyphicon glyphicon-thumbs-up like_counter"></span>
-
-    <!-- I include the logic here because when using redis, the post hash would not be able to access the post model methods-->
-    <% common_ids = @friend_ids & post.liked_user_ids %>
-    <% common_ids_index = common_ids.map{|id| post.liked_user_ids.rindex(id)} %>
-    <% names ||= post.liked_users.pluck(:username) %>
-
-    <% arr = [] %>
-    <% arr << "You" if post.liked_user_ids.include?(current_user.id) %>
-    <% arr << names[common_ids_index[0]] if common_ids_index[0] %>
-    <% arr << names[common_ids_index[1]] if common_ids_index[1] %>
-
-    <% others_count = post.liked_user_ids.count - arr.count %>
-    <%  arr << others_count.to_s + " " + "other".pluralize(others_count) if others_count > 0 %>
-    <%= (arr.count > 1) ? (arr.first(arr.size - 1).join(", ") + " and " + arr[-1]) : arr[0].to_s %>
-
-    <%#= post.like_sentence(current_user, post, friend_ids, post.liked_user_ids, post['liked_names']) %>
+    <%= like_sentence(current_user, post, current_user.friend_ids) %>
   <% end %> 
 <% elsif post.liked_user_ids.count > 0 %>
   <span class="glyphicon glyphicon-thumbs-up like_counter"></span>

@@ -1,0 +1,6 @@
+$('#feed_container').append('<%= j render partial: "posts/post", collection: @newest.per_page || @fnewest, as: :post  %>');
+<% if @newest.next_page %>
+    $('.pagination').replaceWith('<%= j paginate(@newest) %>')
+<% else %>
+    $('.pagination').remove();
+<% end %>

@@ -53,7 +53,10 @@ gem 'unicorn'
 gem "asset_sync"
 gem "fog-aws"
 gem 'dalli'
-gem 'will_paginate', '~> 3.1.0'
+#gem 'will_paginate', '~> 3.1.0'
+gem 'kaminari'
+gem 'bullet', group: 'development'
+gem "sidekiq"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

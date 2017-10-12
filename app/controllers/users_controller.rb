@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def show
     @page = "profile"
     @user = User.find(params[:id])
-    @posts = @user.posts.includes(:user)
+    @posts = @user.posts.includes(:user).order(created_at: :desc)
     @comment = Comment.new
     @friend_ids = current_user.friend_ids
   end

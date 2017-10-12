@@ -8,6 +8,4 @@ class PostAttachment < ApplicationRecord
       :small  => "300x300#",
       :medium => "400x400#" }
   validates_attachment :picture, presence: true, size: { in: 0..5.megabytes }, content_type: { content_type: /\Aimage/ }
-
-
 end

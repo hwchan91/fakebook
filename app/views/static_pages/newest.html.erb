@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div id="feed_container">
+        <%= render partial: "posts/post", collection: @newest.per_page, as: :post %>
+        </div>
+        <div class="digg_pagination"><%= paginate @newest %></div>
+    </div>
+</div>

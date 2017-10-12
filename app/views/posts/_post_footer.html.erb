@@ -6,12 +6,13 @@
     </tr></table>
 <% end %>
 
-
+<%  liked = current_user ? (post.liked_user_ids.include? current_user.id) : false %>
+<%# cache [ "p#{post.id}-foot", liked, current_user.nil? ]do %>
 <table><tr>
     <td>
         <div class="like_button_<%= post.id %>">
         <% if current_user %>
-            <% if !post.liked_user_ids.include? current_user.id %>
+            <% if !liked %>
                 <span class="glyphicon glyphicon-thumbs-up"></span>
                 <%= link_to "Like", likes_path(post_id: post.id), class: "btn", id:"like_submit_button", method: :post, remote: true %>
             <% else %>
@@ -30,7 +31,7 @@
             <div class="expand_comment_button" id="expand_comment_button_<%= post.id %>" disableonclick = "btnFunc('hey', this)" data-id="<%= post.id %>">
                 <span class="glyphicon glyphicon-comment"></span> 
                 <a class="btn">Comment</a>
-            </div>
+            </div
         <% else %>
             <div class="expand_comment_button">
                 <span class="glyphicon glyphicon-comment"></span> 
@@ -39,10 +40,13 @@
         <% end %>
     </td>
 
+
     <td>
         <div class="share_button">
             <span class="glyphicon glyphicon-share-alt"></span>
             <%= link_to "Share on Facebook", "https://www.facebook.com/sharer/sharer.php?u=warm-plains-72294.herokuapp.com/posts/#{post.id}", html_options= {target: "_blank", class: "btn"} %>
         </div>
     </td>
+
 </tr></table>
+<%# end %>

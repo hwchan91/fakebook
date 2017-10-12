@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
-  after_update :update_redis
+  # after_update :update_redis
 
   def friend_request(other_user)
     sent_requests << other_user
@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def feed
-    Post.includes(:user, :liked_users, :post_attachments).where("user_id IN (?) OR user_id = ?", friend_ids, id ).order(updated_at: :desc)
+    Post.includes(:user, :liked_users, :post_attachments).where("(user_id IN (?) OR user_id = ?)", friend_ids, id ).order(created_at: :desc)
   end
 
   def like(post)
@@ -129,9 +129,13 @@ class User < ApplicationRecord
     avatar.url(:thumb)
   end
 
-  def update_redis
-    $redis.del("user_#{self.id}_posts")
-    self.posts.includes(:user, :liked_users, :post_attachments).each {|post| add_record_to_redis(post) }
-  end
+  # def update_redis
+  #   last_post = $redis.zrevrange("newest_posts", -1 ,-1)[0]
+  #   last_id = $redis.zscore("newest_posts", last_post)
+  #   self.posts.where("id >= #{last_id}").each do |post|
+  #     remove_record_from_redis(post)
+  #     add_record_to_redis(post)
+  #   end
+  # end
 
 end

@@ -1,7 +1,7 @@
-<% if current_user.id == obj.user_id %>
-    <% obj_name = obj.class.name.downcase %>
-    <% obj_name = "post" if obj_name == "openstruct" %>
-    <div class="dropdown <%= obj_name %>_nav">
+<% obj_name = obj.class.name.downcase %>
+<% obj_name = "post" if obj_name == "openstruct" %>
+
+<div class="dropdown <%= obj_name %>_nav">
     <button class="btn dropdown-toggle <%= obj_name %>_edit_button" type="button" data-toggle="dropdown">
     <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right" id="<%= obj_name %>_menu">
@@ -13,5 +13,5 @@
             <li><%= link_to "Delete", comment_path(obj.id), method: :delete, class: "btn btn-block delete_comment_button", remote: true %></li>
         <% end %>
     </ul>
-    </div>
-<% end %>
+</div>
+
